@@ -1,4 +1,4 @@
-# GaR
+# Growth at Risk
 
 # Disclaimer
 
