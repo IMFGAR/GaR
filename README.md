@@ -1,4 +1,4 @@
-<p align="right">
+<p align="left">
   <img src="EN-logo_large_blue.png" width="150" title="IMF logo">
 </p>
 
