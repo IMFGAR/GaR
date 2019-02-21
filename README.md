@@ -1,5 +1,8 @@
 # Growth at Risk
 
+<p align="right">
+  <img src="EN-logo_large_blue.png" width="300" title="IMF logo">
+</p>
 # Disclaimer
 
 Reuse of this tool and IMF data does not imply any endorsement of the research and/or product. Any research presented should not be reported as representing the views of the IMF, its Executive Board, or member governments.
