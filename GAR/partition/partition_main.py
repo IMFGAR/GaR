@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 from GAR import wb
-from GAR.globals import read_parameters_global, read_partition_groups, show_message, add_logsheet
+from GAR.globals import read_parameters_global, read_partition_groups, read_partition_groupsPLS, show_message, add_logsheet
 from .plot_partition import partition_plot
 from .partition_retro import partition_retro
 
@@ -46,17 +46,6 @@ def do_partition(debug=False):
     if debug:
         print('---- calling prerun_partition')
     dict_input_partition, dict_groups, df_partition = prerun_partition(debug=debug)
-
-    if debug:
-        print('dict_input_partition:')
-        for key in dict_input_partition:
-            print(key.ljust(20) + ':' + str(dict_input_partition[key]))
-        print('dict_groups:')
-        for key in dict_groups:
-            print(key.ljust(20) + ':' + str(dict_groups[key]))
-        print('df_partition.shape:' + str(df_partition.shape))
-        print('df_partition.index:' + str(df_partition.index))
-        print('df_partition.columns:' + str(df_partition.columns))
 
     # Call main run
     if debug:
@@ -122,15 +111,25 @@ def prerun_partition(debug=False):
             show_message(message, halt=True)
         dict_input_partition[key] = val
 
-    # --------------------------
-    # Create a dict for groups
-    # --------------------------
-    dict_groups = read_partition_groups()
 
     # --------------------------
     # Create df for data
     # --------------------------
     df_partition = read_data_partition()
+    
+    
+    
+    # --------------------------
+    # Create a dict for groups
+    # --------------------------
+
+    if dict_input_partition['method']=="PLS":
+        dict_groups, dict_PLS = read_partition_groupsPLS()        
+        dict_input_partition['PLS_target']=dict_PLS
+    else:
+        dict_groups = read_partition_groups()
+        dict_input_partition['PLS_target']=None
+        
 
     # --------------------------
     # Check df for partition
@@ -142,6 +141,21 @@ def prerun_partition(debug=False):
     # fill missing values for data df
     # --------------------------
     df_partition = format_data_partition(df_partition, dict_input_partition['sdate'], dict_input_partition['edate'])
+
+    #---------------------------
+    # Check PLS target coverage
+    #---------------------------
+    
+    if dict_input_partition['method']=="PLS":      
+        PLSvar=set()
+        for g in dict_PLS.values():
+            for e in g:
+                PLSvar.add(e)
+        PLSvar=list(PLSvar)
+        if df_partition.loc[:,PLSvar].isnull().sum().sum()>0:
+            print( df_partition.loc[:,PLSvar].head())
+            message = 'PLS target should cover all dates'
+            show_message(message, halt=True)
 
     # --------------------------
     # Check partition groups
@@ -227,7 +241,7 @@ def check_parameters_partition(dict_input_partition, keys):
                 show_message(message)
             # the range of the date is checked in Excel and is not checked here
             
-        if key == 'method' and val not in ['LDA', 'PCA']:
+        if key == 'method' and val not in ['LDA', 'PCA','PLS']:
             message = 'method = ' + val + ' was not a valid value'
             show_message(message)
 
@@ -293,7 +307,9 @@ def read_data_partition():
         message = 'Duplicate variables '+dstr+' in datasheet, please check.'
         show_message(message, halt=True)
     # Set index to date
-    df_partition.set_index('date', inplace=True, drop=False)
+    df_partition.index=df_partition['date']
+    df_partition.index.name=None
+
     # TODO: set index to PeriodIndex
         
     return df_partition
@@ -410,7 +426,6 @@ def interpolate_missing_values(wb, df, debug=False):
 
         # Skip dtypes that are not floats.
         # This is because the original data includes columns for isocodes
-        print(df[col].head())
         if df[col].dtype not in [float, np.float64, np.float32]:
             if debug:
                 print('skipping col ' + col + ' due to dtype being ' + df[col].dtype.name)
@@ -637,7 +652,7 @@ def run_partition(dict_input_partition, dict_groups, df_partition, debug=False):
     for key in dict_input_partition:
         if key.find('sheet_') != -1:
             dict_output_partition[key] = dict_input_partition[key]
-            print(key, dict_output_partition[key] , dict_input_partition[key])
+            #print(key, dict_output_partition[key] , dict_input_partition[key])
 
     # ------------------------
     # Get parameters from
@@ -652,10 +667,11 @@ def run_partition(dict_input_partition, dict_groups, df_partition, debug=False):
     benchcutoff = dict_input_partition['pcutoff']
     rgdp =  dict_input_partition['target'] # column name for real GDP
     method_growth = dict_input_partition['method_growth']
+    PLStarget=dict_input_partition['PLS_target']
     # ------------------------
     # Run the partition
     # ------------------------
-    retroframe, retroload, logretro, exitcode = partition_retro(dall=df_partition, groups_dict=dict_groups, tdep=tdep, rgdp=rgdp, method_growth=method_growth, horizon=horizon, method=method, sdate=sdate, edate=edate, benchcutoff=benchcutoff)
+    retroframe, retroload, logretro, exitcode = partition_retro(dall=df_partition, groups_dict=dict_groups, tdep=tdep, rgdp=rgdp, method_growth=method_growth, horizon=horizon, method=method, sdate=sdate, edate=edate, benchcutoff=benchcutoff,PLStarget=PLStarget)
     log_frame = log_frame.append(logretro,ignore_index=True)
     
     if exitcode==-1:
@@ -665,14 +681,15 @@ def run_partition(dict_input_partition, dict_groups, df_partition, debug=False):
     # Add return values
     
     figs={}
-    print(list(dict_groups.keys()))
+    #print(list(dict_groups.keys()))
     
-    figs=partition_plot(retroframe,retroload,list(dict_groups.keys()),tdep,method)
+    figs=partition_plot(df_partition,retroframe,retroload,list(dict_groups.keys()),PLStarget,tdep,method)
     dict_output_partition['frame']   = retroframe
     dict_output_partition['loading'] = retroload
     dict_output_partition['log']     = logretro
     dict_output_partition['figs']     = figs
-    dict_output_partition['groups']=dict_groups.keys()
+    dict_output_partition['groups']=list(dict_groups.keys())
+    dict_output_partition['method'] = method
     return dict_output_partition
 
 def postrun_partition(dict_output_partition, debug=False):
@@ -742,41 +759,58 @@ def postrun_partition(dict_output_partition, debug=False):
         action='Unable to output partitions and loadings.'
     
     sheetname = dict_output_partition['sheet_partitions']
-    try:
-        wb.sheets[sheetname].pictures[0].delete()
-    except:
-        pass
     
-    try:
-        wb.sheets[sheetname].pictures[1].delete()
-    except:
-        pass
+    for p in wb.sheets[sheetname].shapes:
+        try: 
+            p.delete()
+        except Exception as e: 
+            print(e)
     sheet = wb.sheets[sheetname]
-    fig = dict_output_partition['figs'][0]
-    # Set the path of the output file to be in the same dir as the
-    # calling Excel file
-    fullpath = os.path.abspath(os.path.dirname(wb.fullname) + '/figures')
-    if not os.path.isdir(fullpath):
-        os.makedirs(fullpath)
-    outfilename = fullpath+'\\partition_'+date.now().strftime('%Y_%m-%d@%H_%M-%S')+'.png'
-    fig.savefig(outfilename)
-    cr=len(dict_output_partition['groups'])
-    try:
-        sheet.pictures.add(fig, name='MyPlot_P1', update=True, left=sheet.range('M2').left, top=sheet.range('M2').top, height=720, width=cr*255)
-        action = 'Partition figure saved'
-    except:
-        action = 'Unable to add figure to sheet ' + sheetname
-    tn = date.now().strftime('%Y-%m-%d %H:%M:%S')
-    log = pd.Series({'Time': tn, 'Action': action})
-    log_frame = log_frame.append(log,ignore_index=True)
-    
-    fig1 = dict_output_partition['figs'][1]
-    
-    try:
-        sheet.pictures.add(fig1, name='MyPlot_P2', update=True, left=sheet.range('M54').left, top=sheet.range('M54').top, height=320, width=320)
-        action = 'Partition figure saved'
-    except:
-        action = 'Unable to add figure to sheet ' + sheetname
+    if dict_output_partition['method']=='PLS':
+        for i,fig in enumerate(dict_output_partition['figs']):
+            fullpath = os.path.abspath(os.path.dirname(wb.fullname) + '/figures')
+            if not os.path.isdir(fullpath):
+                os.makedirs(fullpath)
+            group=dict_output_partition['groups'][i]
+            outfilename = fullpath+'\\partition_PLS_'+group+date.now().strftime('%Y_%m-%d@%H_%M-%S')+'.png'
+            fig.savefig(outfilename)
+            try:
+                X=str(2+i*38)
+                sheet.pictures.add(fig, name='MyPlot_P'+str(i+1), update=True, left=sheet.range('M'+X).left, top=sheet.range('M'+X).top, height=500, width=750)
+                action = 'Partition figure saved'
+            except:
+                action = 'Unable to add figure to sheet ' + sheetname
+    else:
+        fig = dict_output_partition['figs'][0]
+        # Set the path of the output file to be in the same dir as the
+        # calling Excel file
+        fullpath = os.path.abspath(os.path.dirname(wb.fullname) + '/figures')
+        if not os.path.isdir(fullpath):
+            os.makedirs(fullpath)
+        outfilename = fullpath+'\\partition_'+date.now().strftime('%Y_%m-%d@%H_%M-%S')+'.png'
+        fig.savefig(outfilename)
+        cr=len(dict_output_partition['groups'])
+        try:
+            sheet.pictures.add(fig, name='MyPlot_P1', update=True, left=sheet.range('M2').left, top=sheet.range('M2').top, height=720, width=cr*255)
+            action = 'Partition figure saved'
+        except:
+            action = 'Unable to add figure to sheet ' + sheetname
+        tn = date.now().strftime('%Y-%m-%d %H:%M:%S')
+        log = pd.Series({'Time': tn, 'Action': action})
+        log_frame = log_frame.append(log,ignore_index=True)
+        
+        fig1 = dict_output_partition['figs'][1]
+        if  dict_output_partition['method']=='PLS':
+            ht=700
+            wd=480
+        else:
+            ht=320
+            wd=320
+        try:
+            sheet.pictures.add(fig1, name='MyPlot_P2', update=True, left=sheet.range('M54').left, top=sheet.range('M54').top, height=ht, width=wd)
+            action = 'Partition figure saved'
+        except:
+            action = 'Unable to add figure to sheet ' + sheetname
     
     # Write out log_frame
     add_logsheet(wb, log_frame, colnum=1)

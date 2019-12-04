@@ -114,6 +114,64 @@ def read_parameters_global():
             show_message(message, halt=True)
 
     return dict_global_params
+
+
+def read_partition_groupsPLS():
+    '''
+    Read in groups for partition.
+    This should come from a sheet called Partition_groups.
+    '''
+
+    # Get the sheets in the wb
+    sheetnames = [sheet.name for sheet in wb.sheets]
+    sheetname = 'Partition_groups'
+    # Make sure that Partition_groups sheet exists
+    if sheetname not in sheetnames:
+        message = 'Sheet named ' + sheetname + ' does not exist'
+        show_message(message, halt=True)
+
+    # Read in the contents
+    df_groups = wb.sheets[sheetname].range('B1:B29').options(pd.DataFrame,expand='right').value
+    # Create dict for output
+    dict_groups = dict()
+    
+    # The columns of this df are the keys
+    cols = list(df_groups.columns)
+
+    for col in cols:
+        # Select the column and remove all N/A values,
+        # and return a list of values
+        dict_groups[col] = list(df_groups[col].dropna(axis=0).values)
+
+    # For each column add 
+
+    # Read PLS target
+    sheetname = 'PLS_target'
+    if sheetname not in sheetnames:
+        message = 'Sheet named ' + sheetname + ' does not exist'
+        show_message(message, halt=True)
+    
+    df_PLS = wb.sheets[sheetname].range('B1:B29').options(pd.DataFrame,expand='right').value
+    # Create dict for output
+    dict_PLS = dict()
+
+
+    # The columns of this df are the keys
+    cols = list(df_PLS.columns)
+
+    for col in cols:
+        # Select the column and remove all N/A values,
+        # and return a list of values
+        dict_PLS[col] = list(df_PLS[col].dropna(axis=0).values)
+        if col not in dict_groups:
+            message = 'Missing '+col+' in PLS target.'
+            show_message(message, halt=True)
+        for e in dict_PLS[col]:
+            if e not in dict_groups[col]:
+                message = 'PLS target variable'+e+' not in the corresponding group.'
+                show_message(message, halt=True)
+    # For each column add 
+    return dict_groups, dict_PLS
     
 def read_partition_groups():
     '''
@@ -133,7 +191,7 @@ def read_partition_groups():
     df_groups = wb.sheets[sheetname].range('B1:B29').options(pd.DataFrame,expand='right').value
     # Create dict for output
     dict_groups = dict()
-
+    
     # The columns of this df are the keys
     cols = list(df_groups.columns)
 
@@ -142,7 +200,6 @@ def read_partition_groups():
         # and return a list of values
         dict_groups[col] = list(df_groups[col].dropna(axis=0).values)
 
-    # For each column add 
     return dict_groups
 
 def add_logsheet(wb, log_frame, colnum=1, logsheetname = 'Processing_log'):

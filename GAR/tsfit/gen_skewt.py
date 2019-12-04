@@ -9,6 +9,7 @@ import numpy as np
 from .tskew import tskew_pdf
 from .tskew import tskew_cdf
 from .tskew import tskew_ppf
+from .tskew import tskew_mean
 from .asymt import asymt_pdf
 from .asymt import asymt_cdf
 from .asymt import asymt_ppf
@@ -32,7 +33,7 @@ def gen_skewt(fitdate,fitparam,cond_quant,horizon,freq,olsmean):
         tsfit=tskew_fit(cond_quant,fitparam)
     
         if fitparam['mode']['constraint']=='Free':
-            loc=tsfit['loc']/tsfit['scale']
+            loc=tsfit['loc']
         min_v = loc-8
         max_v = loc+8
         while tskew_cdf(min_v+1, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])>0.05:
@@ -49,16 +50,16 @@ def gen_skewt(fitdate,fitparam,cond_quant,horizon,freq,olsmean):
         tmp_dic={'Tskew_PDF_x':x_list,'Tskew_PDF_y':yvals,'Tskew_CDF':ycdf}
         dfpdf=pd.DataFrame(tmp_dic)
         for i,y in enumerate(ycdf):
-            if y>0.05:
-                q5loc=i
+            q5loc=i
+            if y>0.05:               
                 break
         for i,y in enumerate(ycdf):
+            q10loc=i
             if y>0.1:
-                q10loc=i
                 break  
         for i,x in enumerate(x_list):
-            if x<=0 and (i==len(x_list)-1 or x_list[i+1]>0):
-                zerog=i
+            zerog=i
+            if x<=0 and (i==len(x_list)-1 or x_list[i+1]>0):                
                 break
         print(q5loc,q10loc)   
         
@@ -71,7 +72,7 @@ def gen_skewt(fitdate,fitparam,cond_quant,horizon,freq,olsmean):
         
         
         
-        meanx=tsfit['loc']
+        meanx=tskew_mean(df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
         titlestr = freq+" T-skew quantile fit for "+fitdate.strftime('%m/%d/%Y')+" "+"growth rate"+" forward "+str(horizon)
         lablestr = "Density "+fitdate.strftime('%m/%d/%Y')+" "+"growth rate"+" forward "+str(horizon)
         fig, ax = plt.subplots(1, 1, figsize=(20,10))
@@ -80,10 +81,7 @@ def gen_skewt(fitdate,fitparam,cond_quant,horizon,freq,olsmean):
         ax.fill_between(x_list[:q5loc], 0, yvals[:q5loc],  facecolor='red', interpolate=True)
         ax.plot(x_list,yvals,'b-',label=lablestr)
 
-        modx=loc
-        if fitparam['mode']['constraint']=='Free':
-            loc=tsfit['loc']/tsfit['scale']
-            modx=loc
+        modx=tsfit['loc']
         mody=tskew_pdf(loc, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
         
         medx=tskew_ppf(0.5, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])

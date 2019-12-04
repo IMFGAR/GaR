@@ -17,7 +17,7 @@ import numpy as np
 ## Self-defined modules
 #import paths
 #import globalvars as gv; importlib.reload(gv) ## Partitioning
-from GAR.partition import partition
+
 from .gen_cutoff import gen_cutoff
 from .retropolate_func import retropolate
 from .partition_cutoff import  p_cutoff
@@ -99,6 +99,11 @@ def partition_retro(**kwargs):
         benchcutoff=0.3        
         print('Warning : bench mark cutoff not specified')
         
+    if 'PLStarget' in kwargs:
+        PLStarget=kwargs['PLStarget']
+    else:
+        PLStarget=None
+        
     if 'saveim' in kwargs:
         saveim=kwargs['saveim']
     else:
@@ -136,9 +141,7 @@ def partition_retro(**kwargs):
 
 ## Generating all cutoffs in the period, sorted from latest to earliest
     [cutoffs,complete_group]=gen_cutoff(dall=dall,groups_dict=groups_dict,startdate=sdate,enddate=edate)
-    print("**************************")
-    print(complete_group)
-    print("**************************")
+
     if (cutoffs==-1):
         tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
         action="In the given time period some groups are complete empty. No feasible partition can be made."
@@ -153,10 +156,9 @@ def partition_retro(**kwargs):
         log_frame=log_frame.append(log,ignore_index=True)
         return dall.head(),dall.head(),log_frame,-1
 
-## Generating the parition for the latest cutoff    
-    #print(len(cutoffs),cutoffs[0],dall.head(),groups_dict,complete_group)
     
-    [dp1,dl]=p_cutoff(dall,groups_dict,cutoffs[0],bench,method, benchcutoff, saveim=saveim)
+## Generating the parition for the latest cutoff            
+    [dp1,dl]=p_cutoff(dall,groups_dict,cutoffs[0],bench,method, benchcutoff, PLStarget, saveim=saveim)
 
 #    raw_name = r'\Retropolated_partitions_'+country+'.xlsx'
 #    xlname = gv.final_data_dir + raw_name
@@ -179,10 +181,11 @@ def partition_retro(**kwargs):
 ## Repeatedly generate partition of new cutoff, retropolate the previous partition to it.
 
     dpo=dp1
+
     
     for i in range(1,len(cutoffs)):
 
-        [dpn,dln]=p_cutoff(dall,groups_dict,cutoffs[i],bench,method, benchcutoff, saveim=saveim)    
+        [dpn,dln]=p_cutoff(dall,groups_dict,cutoffs[i],bench,method, benchcutoff, PLStarget, saveim=saveim)    
 
         dpr=retropolate(dfearly=dpn,dflate=dpo,complete_early=complete_group[i],groups_dict=groups_dict)
 
@@ -198,7 +201,10 @@ def partition_retro(**kwargs):
         log_frame=log_frame.append(log,ignore_index=True)
 
     dl['cutoff']=sdate
-    dl=dl[['variable','cutoff','loadings','group','variance_ratio']]
+    if method=='PLS':
+        dl=dl[['variable','cutoff','loadings','group','vip']]
+    else:
+        dl=dl[['variable','cutoff','loadings','group','variance_ratio']]
         
 ## Compute the zscore for the final frame to makes them consistent
     group_vars = [x for x in groups_dict.keys()]
@@ -212,10 +218,11 @@ def partition_retro(**kwargs):
         v=dpo[group].values
         print('after',group,np.var(v))
         
-    
-    
+    dpo.index.name=None
+    dall.index.name=None
     dretro_final = dpo .merge(dall[['date',tdep]], on=['date'], how='left')
-    dretro_final.set_index('date')
+    dretro_final.index=dretro_final['date']
+    dretro_final.index.name=None
 
         
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')

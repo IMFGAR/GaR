@@ -1,4 +1,4 @@
-* This version: 13 February 2019; Romain Lafarguette, rlafarguette@imf.org*
+* This version: 28 October 2019; Romain Lafarguette, rlafarguette@imf.org*
 
 This folder contains the GaR excel tool developed at the International Monetary Fund. Specifically:
 

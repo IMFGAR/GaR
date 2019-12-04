@@ -32,8 +32,9 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
     ###TODO Remove country#####
     dfearly['country']=0
     dflate['country']=0
+    dfearly.index.name=None
+    dflate.index.name=None
     ###########################
-    
     #dload = pd.read_excel(gv.final_data_dir + '/Partitions_late.xlsx',
     #                    sheetname='Loadings') 
 
@@ -100,9 +101,11 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
 #        print(de.iloc[0])
         dng = pd.DataFrame(index=late_missing_dates, columns=['date'])
         dng['date'] = dng.index
+        dng.index.name=None
         dng['country'] = de['country'].values[0]
         dng = dng.sort_values(by='date', ascending=0)
 
+        
         gr_cum = '{}_cum_rgr'.format(group)
         dng_f = dng.merge(ef[['date', gr_cum]], on=['date'], how='left')
         #dng_f[group] = dng_f[gr_cum] + start_val # Increment the value
@@ -120,6 +123,7 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
 
 
         dng_f.index=dng_f['date']
+        dng_f.index.name=None
 #        print(group)
 #        print('dng_f')
 #        print(dng_f)
@@ -133,6 +137,7 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
     for frame in mgr_frames_list[1:]:
         dea = pd.merge(dea, frame, on=['date', 'country'])
     dea.index=dea['date']
+    dea.index.name=None
 
     ## Merge late, early augmented
 

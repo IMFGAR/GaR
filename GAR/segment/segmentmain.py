@@ -11,7 +11,7 @@ import numpy as np
 
 
 from GAR import wb
-from GAR.globals import read_parameters_global, read_partition_groups, show_message, add_logsheet
+from GAR.globals import read_parameters_global, read_partition_groups, read_partition_groupsPLS , show_message, add_logsheet
 from .partition_retro import partition_retro
 from .condqgreg import condquant
 from .gen_seg_skewt import gen_seg_skewt
@@ -219,6 +219,15 @@ def read_parameters_segment():
     dict_parameters_segment['sheet_term'] = wb.sheets['Input_parameters'].range(cellpos).value
 
     dict_parameters_segment['partition_groups']= read_partition_groups()
+    
+    if dict_parameters_segment['method']=="PLS":
+        dict_groups, dict_PLS = read_partition_groupsPLS()        
+        dict_parameters_segment['PLS_target']=dict_PLS
+        dict_parameters_segment['partition_groups']=dict_groups
+    else:
+        dict_groups = read_partition_groups()
+        dict_parameters_segment['partition_groups']=dict_groups
+        dict_parameters_segment['PLS_target']=None
     return dict_parameters_segment
 
 def check_parameters_segment(dict_input_segment):
@@ -248,7 +257,7 @@ def check_parameters_segment(dict_input_segment):
                 show_message(message)
             # the range of the date is checked in Excel and is not checked here
             
-        if key == 'method' and val not in ['LDA', 'PCA']:
+        if key == 'method' and val not in ['LDA', 'PCA','PLS']:
             message = 'method = ' + val + ' was not a valid value'
             show_message(message)
 
@@ -411,6 +420,7 @@ def run_segment(dict_input_segment, df_collection_segment, debug=False):
     rgdp =  dict_input_segment['target'] # column name for real GDP
     method_growth = dict_input_segment['method_growth']
     dict_groups=dict_input_segment['partition_groups']
+    PLStarget=dict_input_segment['PLS_target']
     regressors=list(dict_input_segment['regressors'].keys())
     fitparam=dict_input_segment['fit_params']
     # TODO: get freq of data directly from data
@@ -434,7 +444,7 @@ def run_segment(dict_input_segment, df_collection_segment, debug=False):
         fitdate=dict_input_segment['fitdatelist'][indh]
         inputdate=fitdate
         inputdatelist.append(inputdate)
-        df_quantfit, retroload, logretro, exitcode = partition_retro(dall=df_partition, groups_dict=dict_groups, tdep=tdep+str(horizon), rgdp=rgdp, method_growth=method_growth, horizon=horizon, method=method, sdate=sdate, edate=edate, benchcutoff=benchcutoff)            
+        df_quantfit, retroload, logretro, exitcode = partition_retro(dall=df_partition, groups_dict=dict_groups, tdep=tdep+str(horizon), rgdp=rgdp, method_growth=method_growth, horizon=horizon, method=method, sdate=sdate, edate=edate, benchcutoff=benchcutoff,PLStarget=PLStarget)            
 
         df_quantfit = df_quantfit.set_index(df_quantfit['date'], drop=False) 
         for reg_long in  regressors:
@@ -521,14 +531,14 @@ def run_segment(dict_input_segment, df_collection_segment, debug=False):
                 cond_quant[quant]+=df_quantcoef[(df_quantcoef['variable']==reg_long) & (df_quantcoef['quantile']==quant)]['coeff_noscale'].values[0]*df_partition_fit[reg_long].values[0]
         for e in qlist:
             cqlist.append(cond_quant[e])
-        olsmean=cond_quant[quant]=df_quantcoef[(df_quantcoef['variable']=='Intercept') & (df_quantcoef['quantile']=='mean')]['coeff_noscale'].values[0]
+       
         cqs.append(cqlist)
         fitparam['mode']={}
         fitparam['mode']['constraint']=dict_input_segment['fitconstrainlist'][indh]
         fitparam['mode']['value']=dict_input_segment['fitconstrainvalues'][indh]
         
         
-        olsmean=cond_quant[quant]=df_quantcoef[(df_quantcoef['variable']=='Intercept') & (df_quantcoef['quantile']=='mean')]['coeff_noscale'].values[0]
+        olsmean=df_quantcoef[(df_quantcoef['variable']=='Intercept') & (df_quantcoef['quantile']=='mean')]['coeff_noscale'].values[0]
         for reg_long in  regressors:        
             olsmean+=df_quantcoef[(df_quantcoef['variable']==reg_long) & (df_quantcoef['quantile']=='mean')]['coeff_noscale'].values[0]*df_partition_fit[reg_long].values[0]
 

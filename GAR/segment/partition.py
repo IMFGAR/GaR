@@ -15,6 +15,7 @@ from datetime import datetime as date
 ## Dimensionality reduction
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from .PLSDA import PLS_DA
 from sklearn.preprocessing import scale
 
 
@@ -49,12 +50,12 @@ class Partition(object):
 
     ## Initializer
     def __init__(self, data, groups_dict, reduction='PCA',
-                 benchmark=None):
+                 benchmark=None,PLStarget=None):
 
         ## Parameters
         self.reduction = reduction
         self.benchmark = benchmark
-
+        self.PLStarget = PLStarget
         ## Clean the dataset according to the type of reduction
         if self.reduction == 'LDA':
             if isinstance(self.benchmark, str):
@@ -65,6 +66,10 @@ class Partition(object):
                 raise ValueError('Need a benchmark with supervised reduction')
         elif self.reduction == 'PCA':
             self.data = data.dropna(axis=0, how='all').dropna(axis=1,how='any').fillna(method='ffill').copy()
+            
+        elif self.reduction == "PLS":
+            self.data = data.dropna(axis=0, how='all').dropna(axis=1,how='any').fillna(method='ffill').copy()
+            
         else:
             raise ValueError('Reduction parameter misspecified')
 
@@ -86,9 +91,14 @@ class Partition(object):
             
         elif self.reduction == 'LDA':
             self.partition_fit_group, self.loading = self.__partition_fit_LDA()
+            
+        elif self.reduction == "PLS":
+           self.partition_fit_group, self.loading = self.__partition_fit_PLS()
 
         else:
             raise ValueError('Reduction parameter misspecified')
+            
+
 
         # By default, using the original data (can be customized)
         self.partition = zscore(self.partition_data(self.data)) 
@@ -162,6 +172,7 @@ class Partition(object):
                 ## Store the loadings
                 dl = pd.DataFrame(lda_fit.coef_, index=['loadings'],
                                   columns=var_list).transpose()
+        
                 dl['variance_ratio']=lda_fit.explained_variance_ratio_[0]
                 dl['group'] = group
                 dl['variable'] = dl.index
@@ -187,7 +198,51 @@ class Partition(object):
         
         # Return the fit method and the associated loadings        
         return((lda_fit_group, dloading))        
+    
+    def __partition_fit_PLS(self):
+        """ Run the data partitioning using Principal Component Analysis """
+        groups = sorted(list(self.var_dict.keys()))
+        pls_fit_group = dict()
+        loadings_frame = list()
+        
+        for group in groups:
+            var_list = self.var_dict[group]
+            if len(var_list) > 1: # Run the partition
+                # Partitionning
+                plsdepvar=self.PLStarget[group]
+                plsavlreg=var_list
+                
+                ## Fit the PLS
+                pls = PLS_DA(plsdepvar, plsavlreg,self.data)         
+                pls_fit = pls.fit
+                pls_fit_group[group] = pls_fit
 
+                ## Store the loadings
+                dl = pls.summary
+                dl['group'] = group
+                dl['variable'] = dl.index
+                loadings_frame.append(dl)
+                
+            elif len(var_list) == 1: # Loadings are 1
+                dl = pd.DataFrame(index=var_list)
+                dl['loadings'] = 1
+                dl['vip']=1
+                dl['group'] = group
+                dl['variable'] = var_list[0]
+                loadings_frame.append(dl)
+
+            else: # Empty group: no loading
+                dl = pd.DataFrame(columns=['loadings', 'group', 'variable'])
+                dl['loadings'] = np.nan
+                dl['vip']=np.nan
+                dl['group'] = group
+                dl['variable'] = np.nan
+                loadings_frame.append(dl)
+
+        dloading = pd.concat(loadings_frame)
+
+        # Return the fit method and the associated loadings                
+        return((pls_fit_group, dloading))   
     
     def partition_data(self, dataframe):
         """ Return the aggregated data """
@@ -205,9 +260,14 @@ class Partition(object):
                 
                 # Scale the variables
                 X = scale(dg) 
-
+                              
                 ## Generate the data using the partitioning fit
-                da[group] = pfit[group].transform(X)
+                if self.reduction=='PLS':
+                    Y = scale(dataframe.loc[:, self.PLStarget[group]].copy())     
+                    da[group] = pfit[group].fit_transform(X,Y)[0]                    
+                else:
+                    da[group] = pfit[group].transform(X)
+                                    
                 
             elif len(var_list) == 1: # Simply keep the variable as it is
                 da[group] = dataframe.loc[:, var_list[0]]

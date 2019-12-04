@@ -113,7 +113,7 @@ def quantile_uncrossing(cond_quant_dict, method='linear'):
     np.random.seed(2018)
     ## Check if the quantiles are crossing in the first place
     if sorted(cond_quant) == cond_quant:
-        print('Conditional quantiles already sorted !')
+       # print('Conditional quantiles already sorted !')
         cond_quant_uncrossed_dict = cond_quant_dict
     else:
         if method=='linear':         
@@ -166,7 +166,7 @@ def tskew_distance(quantile_list, cond_quant,
     diff2 = np.power(diff,2)    
     msse = np.sum(diff2)
     
-    loc_tskew=loc/scale
+    loc_tskew=loc
     for i in range(len(quantile_list)):
         if quantile_list[i]==0.25:
             lowq=cond_quant[i]
@@ -255,7 +255,7 @@ def tskew_fit(conditional_quantiles, fitparams):
     else:
         loc=conditional_quantiles[0.5]
     
-    print( scale_down, scale_up, skew_high,skew_low)
+    #print( scale_down, scale_up, skew_high,skew_low)
     
     
     if fitparams['dof']['constraint']=='Fixed':        
@@ -318,7 +318,7 @@ def tskew_fit(conditional_quantiles, fitparams):
                            options={'maxiter':1000,  'ftol': 1e-04, 'eps': 1.5e-06})
         
             o_scale, o_skew  = res.x
-            locs=cond_mean/o_scale
+            locs=cond_mean
             if locs>loc:
                 cdmeanmax=cond_mean
             else:

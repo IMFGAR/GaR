@@ -11,7 +11,7 @@ Time-stamp: "2018-10-04 20:26:07 RLafarguette"
 import numpy as np                                      ## Numeric methods
 
 from scipy.stats import t                               ## Student distribution
-
+import math                                             ## Math functions
 ###############################################################################
 #%% Probability density function of a TSkew distribution
 ###############################################################################
@@ -29,10 +29,10 @@ def tskew_pdf(x, df, loc, scale, skew):
     
     """
     cons = (2/(skew + (1/skew)))/scale
-    norm_x = x-(loc/scale)
-    if x < loc/scale :
+    norm_x =  (x-loc)/scale
+    if x < loc :
         pdf = cons*t.pdf(skew*norm_x, df, loc=0, scale=1) # Symmetric t pdf
-    elif x >= loc/scale:
+    elif x >= loc:
         pdf = cons*t.pdf(norm_x/skew, df, loc=0, scale=1) # Symmetric t pdf
     else:
         raise ValueError('Incorrect parameters')
@@ -100,27 +100,50 @@ def tskew_cdf(x, df, loc, scale, skew):
 
     return(cdf)
 
+###############################################################################
+#%% sampling t-skew via inverse transform sampling
+###############################################################################
+def tskew_sampling(n,tau, df, loc, scale, skew):
+    uni=np.random.random_sample(size=n)
+    samples=[tskew_ppf(x,tau, df, loc, scale, skew) for x in uni]
+    return samples
 
+
+###############################################################################
+#%% get mean value of t-skew
+###############################################################################
+def tskew_mean(df, loc, scale, skew):
+    """
+    Note by C. Wang
+    Formula from Equation 5 of
+    On Bayesian Modeling of Fat Tails and Skewness
+    Carmen Fernandez and Mark F. J. Stee, 1998 JASA
+    """
+    cons1=skew-1/skew
+    Mr=math.gamma((df+1)/2)/(math.sqrt(df*math.pi)*math.gamma(df/2))*2*df*scale
+    return cons1*Mr+loc
 
 #%%
-
+#
 ## Test
+#
+#df0= 1
+#loc0= 4
+#scale0= 2
+#skew0= 5
+#
+#
+#print(tskew_ppf(0.2,df0,loc0,scale0,skew0))
+#print(tskew_cdf(tskew_ppf(0.2,df0,loc0,scale0,skew0),df0,loc0,scale0,skew0))
 
-# df0= 1
-# loc0= 4
-# scale0= 3
-# skew0= 1.2 
-
-# tskew_cdf(tskew_ppf(0.85,df0,loc0,scale0,skew0),df0,loc0,scale0,skew0)
 
 
-
-
-# df0= 1
-# loc0= 1.8
-# scale0= 3
-# skew0= 1.2
-
-# plt.plot([tskew_pdf(x, df0, loc0, scale0, skew0) for x in np.linspace(-10,10, 200)])
-# plt.show()
+df0= 2
+loc0= 1.8
+scale0= 3
+skew0=0.8
+print(tskew_mean(df0, loc0, scale0, skew0),loc0,scale0, skew0)
+#
+#plt.plot([tskew_pdf(x, df0, loc0, scale0, skew0) for x in np.linspace(-10,10, 200)])
+#plt.show()
 

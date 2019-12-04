@@ -251,11 +251,10 @@ def run_historical(dict_input_historical, df_historical, debug=False):
         cond_quants.append(dict(zip(clst,qval)))
         realvalues.append(df_historical[(df_historical['tau']=='mean') & (df_historical['date']==d)]['realized_value'].values[0])
     fitparam=dict_input_historical['fit_params']
-    fig,res,chartpacks = historical_gen(cond_quants,fitparam,dates,realvalues,olsmeans)
+    figs,res,chartpacks = historical_gen(cond_quants,fitparam,dates,realvalues,olsmeans)
     df=pd.DataFrame(res)
     df.index=dates
-    print(df)
-    dict_output_historical['fig'] = fig
+    dict_output_historical['figs'] = figs
     dict_output_historical['charts'] = chartpacks
     dict_output_historical['data'] = df
     #dict_output_historical['data']= df_output      
@@ -301,10 +300,11 @@ def postrun_historical(dict_output_historical, debug=False):
     except:
         print('Unable to acess '+sheetname)
          
-    try:
-        wb.sheets[sheetname].pictures[0].delete()
-    except:
-        pass
+    for p in wb.sheets[sheetname].shapes:
+        try: 
+            p.delete()
+        except Exception as e: 
+            print(e)
 
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
     
@@ -312,7 +312,7 @@ def postrun_historical(dict_output_historical, debug=False):
 
 
     # Write out historical results
-    fig = dict_output_historical['fig']
+    figs = dict_output_historical['figs']
     res = dict_output_historical['data']
     charts= dict_output_historical['charts']
     # Set the path of the output file to be in the same dir as the
@@ -320,20 +320,49 @@ def postrun_historical(dict_output_historical, debug=False):
     fullpath = os.path.abspath(os.path.dirname(wb.fullname) + '/figures')
     if not os.path.isdir(fullpath):
         os.makedirs(fullpath)
+        
+        
     outfilename = fullpath+'\\historical_'+date.now().strftime('%Y_%m-%d@%H_%M-%S')+'.png'
     try:
-        fig.savefig(outfilename)
+        figs['res'].savefig(outfilename)
     except:
          print('Fail to save historical figure.')
     
     try:
-        sheet.pictures.add(fig, name='MyPlot', update=True, left=sheet.range('B5').left, top=sheet.range('B5').top, height=1400, width=520)
+        sheet.pictures.add(figs['res'], name='MyPlot', update=True, left=sheet.range('B30').left, top=sheet.range('B30').top, height=1700, width=480)
         action = 'historical figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname
+    
+    
+    outfilename = fullpath+'\\pittest_'+date.now().strftime('%Y_%m-%d@%H_%M-%S')+'.png'
+    try:
+        figs['pit'].savefig(outfilename)
+    except:
+         print('Fail to save pit figure.')
+         
+ 
+         
+    try:    
+        sheet.pictures.add(figs['pit'], name='MyPlot2', update=True, left=sheet.range('B3').left, top=sheet.range('B3').top, height=360, width=350)
+        action = 'historical figure saved'
+    except:
+        action = 'Unable to add figure to sheet ' + sheetname    
+        
+    outfilename = fullpath+'\\logscore_'+date.now().strftime('%Y_%m-%d@%H_%M-%S')+'.png'
+    try:
+        figs['ls'].savefig(outfilename)
+    except:
+         print('Fail to save logscore figure.')     
+         
+    try:    
+        sheet.pictures.add(figs['ls'], name='MyPlot3', update=True, left=sheet.range('J3').left, top=sheet.range('J3').top, height=360, width=480)
+        action = 'historical figure saved'
+    except:
+        action = 'Unable to add figure to sheet ' + sheetname    
         
     try:
-        wb.sheets[sheetname].range('O1').value = res
+        wb.sheets[sheetname].range('U1').value = res
     except:
         action='Unable to output historical result.'    
         

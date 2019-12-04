@@ -89,7 +89,7 @@ def asymt_cdf(y_0, alpha=0.5, nu1=1, nu2=1, mu=0, sigma=1):
     Alpha is the skewness, nu1 and nu2 are the left and right kurtosis
     mu is location (mode) and sigma the scale (variance)
     """
-    
+
     ## Need to normalize so that it works with unscaled version of cdf
     y = (y_0 - mu)/sigma
     

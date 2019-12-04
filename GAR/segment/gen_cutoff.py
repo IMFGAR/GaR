@@ -47,7 +47,7 @@ def gen_cutoff (dall="default",groups_dict={}, startdate=date(year=1,month=1,day
     dates=list(set_date)
     dates.sort(reverse=True)
     complete_groups=[]
-
+    print(partition_dict.values())
     for d in dates:                
         tmp_c_key=[]
         for key, values in partition_dict.items():
