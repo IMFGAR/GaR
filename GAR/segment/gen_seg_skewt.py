@@ -9,6 +9,7 @@ import numpy as np
 from .tskew import tskew_pdf
 from .tskew import tskew_cdf
 from .tskew import tskew_ppf
+from .tskew import tskew_mean
 from .asymt import asymt_pdf
 from .asymt import asymt_cdf
 from .asymt import asymt_ppf
@@ -108,8 +109,8 @@ def gen_seg_skewt(fitdates,fitparam,skewtlist,horizonlist,medianlist,loclist,inp
             yq10= tskew_pdf(xq10, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])     
             ycq5= tskew_cdf(xq5, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew']) 
             ycq10= tskew_cdf(xq10, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
-            meanx=tsfit['loc']
-            modx=loclist[indhz]
+            meanx=tskew_mean(df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+            modx=tsfit['loc']
             medx=tskew_ppf(0.5, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
             xq5s.append(xq10)
     

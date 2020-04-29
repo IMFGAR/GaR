@@ -297,7 +297,7 @@ def tskew_fit(conditional_quantiles, fitparams):
     locs = loc+0.5
     cond_mean=0
     cdmeanmax=loc+10
-    cdmeanmin=max(0.01,loc-10)
+    cdmeanmin=loc-10
     #print(fitparams['mode']['constraint'])
     
     

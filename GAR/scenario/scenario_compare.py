@@ -24,27 +24,15 @@ def scenario_compare(cond_quant_raw,cond_quant_shocked,fitparam,fitparam_shocked
     freq    = 'Quarterly'
     if fitparam['fittype']=='T-skew':
         
-        if fitparam['mode']['constraint']=='Fixed':
-            loc_raw=fitparam['mode']['value']
-        else:
-            loc_raw=cond_quant_raw [0.5]
 
-    
-        if fitparam_shocked['mode']['constraint']=='Fixed':
-            loc_shocked=fitparam['mode']['value']
-        else:
-            loc_shocked=cond_quant_shocked [0.5]
      
 
         print ('cond_quant_raw',cond_quant_raw)
         print ('cond_quant_shocked',cond_quant_shocked)
         tsfit_raw=tskew_fit(cond_quant_raw,fitparam)
         tsfit_shocked=tskew_fit(cond_quant_shocked,fitparam_shocked)
-        if fitparam['mode']['constraint']=='Free':
-            loc_raw=tsfit_raw['loc']/tsfit_raw['scale']
-        
-        if fitparam_shocked['mode']['constraint']=='Free':
-            loc_shocked=tsfit_shocked['loc']/tsfit_shocked['scale']    
+        loc_raw=tsfit_raw['loc']
+        loc_shocked=tsfit_shocked['loc'] 
     
         print(tsfit_raw)
         print(tsfit_shocked)
@@ -64,6 +52,10 @@ def scenario_compare(cond_quant_raw,cond_quant_shocked,fitparam,fitparam_shocked
         dfpdf=pd.DataFrame(tmp_dic)[['Tskew_PDF_x','Tskew_PDF_y_before','Tskew_CDF_y_before','Tskew_PDF_y_after','Tskew_CDF_y_after']]
     #tmp_dic={'Tskew_PDF_x':x_list,'Tskew_PDF_y':yvals,'Tskew_CDF':ycdf}
     #dfpdf=pd.DataFrame(tmp_dic)
+        q5loc_raw=min_v
+        q10loc_raw=min_v
+        q5loc_shocked=min_v
+        q10loc_shocked=min_v
         for i,y in enumerate(ycdf_raw):
             if y>0.05:
                 q5loc_raw=i
