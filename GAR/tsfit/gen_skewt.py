@@ -34,8 +34,14 @@ def gen_skewt(fitdate,fitparam,cond_quant,horizon,freq,olsmean):
     
         if fitparam['mode']['constraint']=='Free':
             loc=tsfit['loc']
-        min_v = loc-8
-        max_v = loc+8
+            
+        v_q5=tskew_ppf(0.05, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q40=tskew_ppf(0.4, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q60=tskew_ppf(0.6, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q95=tskew_ppf(0.95, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        x_inc=(v_q40-v_q5)/4
+        min_v = v_q5-abs(v_q5-v_q40)
+        max_v = v_q95+abs(v_q95-v_q60)
         while tskew_cdf(min_v+1, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])>0.05:
             min_v-=1
 
@@ -91,39 +97,39 @@ def gen_skewt(fitdate,fitparam,cond_quant,horizon,freq,olsmean):
         if fitparam['plot_mode']:
             ax.plot([modx,modx],[0,mody],'r-.')
             ax.annotate('Mode', xy=(modx, mody),xycoords='data',
-                        xytext=(modx+1.5, mody*1.2), textcoords='data',
+                        xytext=(modx+x_inc, mody*1.2), textcoords='data',
                         arrowprops=dict(arrowstyle="->",
                         connectionstyle="arc3"),fontsize=24,)
         if fitparam['plot_median']:
             ax.plot([medx,medx],[0,medy],'m-.')
             if medx<modx:
-                sp=-1
+                sp=-x_inc
             else:
-                sp=1
+                sp=x_inc
             ax.annotate('Median', xy=(medx, medy),xycoords='data',
                         xytext=(medx+sp, mody*1.1), textcoords='data',
                         arrowprops=dict(arrowstyle="->",
                         connectionstyle="arc3"),fontsize=24,)
         if fitparam['plot_mean']:
             if meanx<modx:
-                sp=-1
+                sp=-x_inc
             else:
-                sp=1
+                sp=x_inc
             ax.plot([meanx,meanx],[0,meany],'c-.')
             ax.annotate('Mean', xy=(meanx, meany),xycoords='data',
-                        xytext=(meanx+sp, meany*1.3), textcoords='data',
+                        xytext=(meanx+sp, meany*1.1), textcoords='data',
                         arrowprops=dict(arrowstyle="->",
                         connectionstyle="arc3"),fontsize=24,)
             
         ax.plot([xq5,xq5],[0,yq5],'k--')
         
         ax.annotate('GaR 5%', xy=(xq5, yq5), xycoords='data',
-                    xytext=(xq5-2, yq5*1.4), textcoords='data',
+                    xytext=(xq5-x_inc, yq5*1.4), textcoords='data',
                     arrowprops=dict(arrowstyle="->",
                                     connectionstyle="angle3,angleA=90,angleB=0"),fontsize=24,)
         ax.plot([xq10,xq10],[0,yq10],'k--')
         ax.annotate('GaR 10%', xy=(xq10, yq10), xycoords='data',
-                    xytext=(xq10-1.5, yq10*1.3), textcoords='data',
+                    xytext=(xq10-x_inc, yq10*1.3), textcoords='data',
                     arrowprops=dict(arrowstyle="->",
                     connectionstyle="angle3,angleA=0,angleB=90"),fontsize=24,)
         ax.legend(fontsize=24)

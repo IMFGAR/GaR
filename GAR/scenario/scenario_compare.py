@@ -36,10 +36,24 @@ def scenario_compare(cond_quant_raw,cond_quant_shocked,fitparam,fitparam_shocked
     
         print(tsfit_raw)
         print(tsfit_shocked)
-        min_v = min(loc_raw,loc_shocked)-8
-        max_v = max(loc_raw,loc_shocked)+8
-        while tskew_cdf(min_v+1, df=tsfit_raw['df'], loc=tsfit_raw['loc'], scale=tsfit_raw['scale'], skew=tsfit_raw['skew'])>0.05 or tskew_cdf(min_v+1, df=tsfit_shocked['df'], loc=tsfit_shocked['loc'], scale=tsfit_shocked['scale'], skew=tsfit_shocked['skew'])>0.05:
-            min_v-=1
+        tsfit=tsfit_raw
+        v_q5=tskew_ppf(0.05, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q40=tskew_ppf(0.4, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q60=tskew_ppf(0.6, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q95=tskew_ppf(0.95, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+
+        min_v = v_q5-abs(v_q5-v_q40)
+        max_v = v_q95+abs(v_q95-v_q60)
+        
+        
+        tsfit=tsfit_shocked
+        v_q5=tskew_ppf(0.05, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q40=tskew_ppf(0.4, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q60=tskew_ppf(0.6, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+        v_q95=tskew_ppf(0.95, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+
+        min_v = min(min_v,v_q5-abs(v_q5-v_q40))
+        max_v = max(max_v,v_q95+abs(v_q95-v_q60))
         
         x_list = [x for x in np.arange(min_v,max_v,0.05)]
         yvals_raw= [tskew_pdf(z, df=tsfit_raw['df'], loc=tsfit_raw['loc'], scale=tsfit_raw['scale'], skew=tsfit_raw['skew']) for z in x_list]
@@ -134,7 +148,7 @@ def scenario_compare(cond_quant_raw,cond_quant_shocked,fitparam,fitparam_shocked
 #                connectionstyle="angle3,angleA=0,angleB=90"),)
         ax.legend(fontsize=24)
         ax.tick_params(labelsize=24)
-        plt.ylim(0, max(max(yvals_raw),max(yvals_shocked))+0.2)
+        plt.ylim(0, max(max(yvals_raw),max(yvals_shocked))*1.2)
         plt.ylabel('Probability Density', fontsize=24)
         plt.xlabel(freq+' GDP(compound annual growth rate)', fontsize=24)    
     

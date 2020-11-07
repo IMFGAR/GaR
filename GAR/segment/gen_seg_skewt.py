@@ -27,6 +27,16 @@ def gen_seg_skewt(fitdates,fitparam,skewtlist,horizonlist,medianlist,loclist,inp
     if fitparam['fittype']=='T-skew':
         min_v = min(loclist)-8
         max_v = max(loclist)+8
+        for indhz in range(n):
+            tsfit=skewtlist[indhz]
+            v_q5=tskew_ppf(0.05, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+            v_q40=tskew_ppf(0.4, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+            v_q60=tskew_ppf(0.6, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+            v_q95=tskew_ppf(0.95, df=tsfit['df'], loc=tsfit['loc'], scale=tsfit['scale'], skew=tsfit['skew'])
+
+            min_v = min(min_v,v_q5-abs(v_q5-v_q40))
+            max_v = max(max_v,v_q95+abs(v_q95-v_q60))
+
         x_list = [x for x in np.arange(min_v,max_v,0.05)]
         titlestr = freq+" T-skew forecast for growth rate"
         fig, ax = plt.subplots(1, 1, figsize=(20,10))
