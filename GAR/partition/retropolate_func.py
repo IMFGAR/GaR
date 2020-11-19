@@ -100,7 +100,7 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
 #        print(dl.iloc[0])
 #        print(de.iloc[0])
         dng = pd.DataFrame(index=late_missing_dates, columns=['date'])
-        dng['date'] = dng.index
+        dng['date'] = dng.index.values
         dng.index.name=None
         dng['country'] = de['country'].values[0]
         dng = dng.sort_values(by='date', ascending=0)
@@ -122,7 +122,7 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
             dng_f[group] = dng_f[gr_cum] + start_val
 
 
-        dng_f.index=dng_f['date']
+        dng_f.index=dng_f['date'].values
         dng_f.index.name=None
 #        print(group)
 #        print('dng_f')
@@ -136,7 +136,7 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
     dea = mgr_frames_list[0]
     for frame in mgr_frames_list[1:]:
         dea = pd.merge(dea, frame, on=['date', 'country'])
-    dea.index=dea['date']
+    dea.index=dea['date'].values
     dea.index.name=None
 
     ## Merge late, early augmented
