@@ -295,7 +295,7 @@ def postrun_historical(dict_output_historical, debug=False):
         else:
             wb.sheets.add(sheetname, after='Data')
                 # Set output sheet colors to blue
-            wb.sheets[sheetname].api.Tab.Colorindex = 23
+            wb.sheets[sheetname].api.Tab.ColorIndex = 23
             action = 'Created sheet ' + sheetname
     except:
         print('Unable to acess '+sheetname)
@@ -329,7 +329,9 @@ def postrun_historical(dict_output_historical, debug=False):
          print('Fail to save historical figure.')
     
     try:
-        sheet.pictures.add(figs['res'], name='MyPlot', update=True, left=sheet.range('B30').left, top=sheet.range('B30').top, height=1700, width=480)
+        pic=sheet.pictures.add(figs['res'], name='MyPlot', update=True, left=sheet.range('B30').left, top=sheet.range('B30').top, height=1700, width=480)
+        pic.height=1700
+        pic.width=480
         action = 'historical figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname
@@ -344,7 +346,9 @@ def postrun_historical(dict_output_historical, debug=False):
  
          
     try:    
-        sheet.pictures.add(figs['pit'], name='MyPlot2', update=True, left=sheet.range('B3').left, top=sheet.range('B3').top, height=360, width=350)
+        pic=sheet.pictures.add(figs['pit'], name='MyPlot2', update=True, left=sheet.range('B3').left, top=sheet.range('B3').top, height=360, width=350)
+        pic.height=360
+        pic.width=350
         action = 'historical figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname    
@@ -356,7 +360,9 @@ def postrun_historical(dict_output_historical, debug=False):
          print('Fail to save logscore figure.')     
          
     try:    
-        sheet.pictures.add(figs['ls'], name='MyPlot3', update=True, left=sheet.range('J3').left, top=sheet.range('J3').top, height=360, width=480)
+        pic=sheet.pictures.add(figs['ls'], name='MyPlot3', update=True, left=sheet.range('J3').left, top=sheet.range('J3').top, height=360, width=480)
+        pic.height=360
+        pic.width=480
         action = 'historical figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname    

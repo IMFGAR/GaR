@@ -75,10 +75,11 @@ class QuantileReg(object):
             self.data.loc[:, vars_reg] = scale(self.data.loc[:, vars_reg])
         else:
             pass
-        
         ## From class methods (see below)
         self.qfit_dict = self.__qfit_dict()
+
         self.mfit = self.__mfit()
+
         self.coeff = self.__coeff()
 
         ## Conditional quantiles: use as predictors the historical regressors

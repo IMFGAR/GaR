@@ -499,7 +499,7 @@ def postrun_scenario(dict_output_scenario, debug=False):
         else:
             wb.sheets.add(sheetname, after='Data')
                 # Set output sheet colors to blue
-            wb.sheets[sheetname].api.Tab.Colorindex = 23
+            wb.sheets[sheetname].api.Tab.ColorIndex = 23
             action = 'Created sheet ' + sheetname
     except:
         print('Unable to acess '+sheetname)
@@ -536,7 +536,10 @@ def postrun_scenario(dict_output_scenario, debug=False):
          print('Fail to save scenario figure.')
     
     try:
-        sheet.pictures.add(fig, name='MyPlot', update=True, left=sheet.range('B12').left, top=sheet.range('B12').top, height=250, width=500)
+        pic= sheet.pictures.add(fig, name='MyPlot', update=True, left=sheet.range('B12').left, top=sheet.range('B12').top, height=250, width=500)
+        pic.height=250
+        pic.width=500
+        
         action = 'Scenario figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname

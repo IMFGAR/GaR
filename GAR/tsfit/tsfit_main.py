@@ -135,6 +135,7 @@ def read_parameters_tsfit():
     # Create dict for parameters
     dict_parameters_tsfit = dict()
 
+
     # ---------------------------#
     # Read in necessary values
     # ---------------------------#
@@ -184,11 +185,13 @@ def read_parameters_tsfit():
     cellpos = 'D67'
     dict_parameters_tsfit['fit_params']['qsmooth']['period'] = wb.sheets['Input_parameters'].range(cellpos).value
     
-    
+
     #Read in plot parameters 
-    obj1 = wb.sheets['Input_parameters'].api   
-    for ind,c in enumerate(obj1.CheckBoxes()):        
-        e=c.value
+    obj1 = wb.sheets['Input_parameters'].api
+
+    for ind,c in enumerate(obj1.CheckBoxes()):     
+
+        e=c.Value
         print(e)
         if ind==0:
             dict_parameters_tsfit['fit_params']['plot_mode']= (e>0)
@@ -198,7 +201,7 @@ def read_parameters_tsfit():
             dict_parameters_tsfit['fit_params']['plot_mean']= (e>0)
    
     
-   
+
     # Read in output sheet
     cellpos = 'B69'
     dict_parameters_tsfit['sheet_tsfit'] = wb.sheets['Input_parameters'].range(cellpos).value
@@ -511,7 +514,7 @@ def postrun_tsfit(dict_output_tsfit, debug=False):
         else:
             wb.sheets.add(sheetname, after='Data')
                 # Set output sheet colors to blue
-            wb.sheets[sheetname].api.Tab.Colorindex = 23
+            wb.sheets[sheetname].api.Tab.ColorIndex = 23
             action = 'Created sheet ' + sheetname
     except:
         action = 'Unable to access sheet ' + sheetname
@@ -591,13 +594,19 @@ def postrun_tsfit(dict_output_tsfit, debug=False):
     except:
         print('Unable to save PDF plots.')
     try:
-        sheet.pictures.add(fig, name='MyPlot', update=True, left=sheet.range('B14').left, top=sheet.range('B14').top, height=250, width=500)
+        pic=sheet.pictures.add(fig, name='MyPlot', update=True, left=sheet.range('B14').left, top=sheet.range('B14').top, height=250, width=500)
+        pic.height=250
+        pic.width=500
+        
         action = 'Skewed T distribution fit figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname
         
     try:
-        sheet.pictures.add(fig2, name='MyPlot_2', update=True, left=sheet.range('B33').left, top=sheet.range('B33').top, height=250, width=500)
+        pic=sheet.pictures.add(fig2, name='MyPlot_2', update=True, left=sheet.range('B33').left, top=sheet.range('B33').top, height=250, width=500)
+        pic.height=250
+        pic.width=500
+        
         action = 'Skewed T distribution fit figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname

@@ -734,7 +734,7 @@ def postrun_partition(dict_output_partition, debug=False):
             else:
                 wb.sheets.add(sheetname, after='Data')
                 # Set output sheet colors to blue
-                wb.sheets[sheetname].api.Tab.Colorindex = 23
+                wb.sheets[sheetname].api.Tab.ColorIndex = 23
                 action = 'Created sheet ' + sheetname
         except:
             action = 'Unable to access sheet ' + sheetname
@@ -776,7 +776,10 @@ def postrun_partition(dict_output_partition, debug=False):
             fig.savefig(outfilename)
             try:
                 X=str(2+i*38)
-                sheet.pictures.add(fig, name='MyPlot_P'+str(i+1), update=True, left=sheet.range('M'+X).left, top=sheet.range('M'+X).top, height=500, width=750)
+                pic=sheet.pictures.add(fig, name='MyPlot_P'+str(i+1), update=True, left=sheet.range('M'+X).left, top=sheet.range('M'+X).top, height=500, width=750)
+                pic.height=500
+                pic.width=750
+                
                 action = 'Partition figure saved'
             except:
                 action = 'Unable to add figure to sheet ' + sheetname
@@ -791,7 +794,9 @@ def postrun_partition(dict_output_partition, debug=False):
         fig.savefig(outfilename)
         cr=len(dict_output_partition['groups'])
         try:
-            sheet.pictures.add(fig, name='MyPlot_P1', update=True, left=sheet.range('M2').left, top=sheet.range('M2').top, height=720, width=cr*255)
+            pic=sheet.pictures.add(fig, name='MyPlot_P1', update=True, left=sheet.range('M2').left, top=sheet.range('M2').top, height=720, width=cr*255)
+            pic.height=720
+            pic.width=cr*255
             action = 'Partition figure saved'
         except:
             action = 'Unable to add figure to sheet ' + sheetname
@@ -807,7 +812,9 @@ def postrun_partition(dict_output_partition, debug=False):
             ht=320
             wd=320
         try:
-            sheet.pictures.add(fig1, name='MyPlot_P2', update=True, left=sheet.range('M54').left, top=sheet.range('M54').top, height=ht, width=wd)
+            pic=sheet.pictures.add(fig1, name='MyPlot_P2', update=True, left=sheet.range('M54').left, top=sheet.range('M54').top, height=ht, width=wd)
+            pic.height=ht
+            pic.width=wd
             action = 'Partition figure saved'
         except:
             action = 'Unable to add figure to sheet ' + sheetname

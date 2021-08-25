@@ -425,7 +425,7 @@ def postrun_quantfit(dict_output_quantfit, debug=False):
             else:
                 wb.sheets.add(sheetname, after='Data')
                 # Set output sheet colors to blue
-                wb.sheets[sheetname].api.Tab.Colorindex = 23
+                wb.sheets[sheetname].api.Tab.ColorIndex = 23
                 action = 'Created sheet ' + sheetname
         except:
             action = 'Unable to access sheet ' + sheetname
@@ -469,7 +469,10 @@ def postrun_quantfit(dict_output_quantfit, debug=False):
     fig.savefig(outfilename)
     cr=len(dict_output_quantfit['regressors'].keys())
     try:
-        sheet.pictures.add(fig, name='MyPlot_q', update=True, left=sheet.range('N6').left, top=sheet.range('N6').top, height=340*(cr//4+1), width=240*(min(4,cr+1)))
+        pic=sheet.pictures.add(fig, name='MyPlot_q', update=True, left=sheet.range('N6').left, top=sheet.range('N6').top, height=340*(cr//4+1), width=240*(min(4,cr+1)))
+        pic.height=340*(cr//4+1)
+        pic.width=240*(min(4,cr+1))
+        
         action = 'Quantile figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname

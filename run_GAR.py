@@ -48,11 +48,11 @@ def main(argv):
     
     # Run the historical
     print('Running historical...')    
-    GAR.do_historical()
+    #GAR.do_historical()
     
     # Run the segment
     print('Running segment...')    
-    #GAR.do_segment()
+    GAR.do_segment()
     
 if __name__ == '__main__':
     #main(sys.argv[1:])

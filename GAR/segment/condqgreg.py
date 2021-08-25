@@ -39,7 +39,7 @@ def condquant(dall,depvar,regressors_avl,horizon,ql):
     dc = qrs.coeff
     dc = add_id(dc,c_id_dict)
     dc.insert(0, 'variable', dc.index)
-        
+    
         ## Without scaling: get the conditional quantiles 
     qru = QuantileReg(depvar, indvars=regressors_avl,
                       quantile_list=ql,
@@ -47,11 +47,12 @@ def condquant(dall,depvar,regressors_avl,horizon,ql):
                       scaling=False, alpha=0.1)
 
         ## Run the predictions on the full frame (estimates can differ)
+
     dcq = qru.cond_quantiles(predictors = dall).copy()
 #    dcq['date'] = dall['date']
 #    dcq.index=dcq['date']
     dcq = add_id(dcq, c_id_dict)
-    
+
     print('Quantile reg done')
         ## Store the coefficients
     dci = qru.coeff; dci = add_id(dci, c_id_dict)

@@ -462,10 +462,10 @@ def run_segment(dict_input_segment, df_collection_segment, debug=False):
             elif dict_input_segment['regressors'][reg_long]['transform']=='ChangeRate': 
                 df_quantfit[reg_long]=df_quantfit[reg_short].pct_change(dict_input_segment['regressors'][reg_long]['option'])
 
+
         #df_quantcoef, dcond_quantiles_all, loco_all, exitcode = condquant(df_quantfit, tdep+str(horizon), regressors, horizon,dict_input_segment['quantlist'])
         df_quantcoef, exitcode = condquant(df_quantfit, tdep+str(horizon), regressors, horizon,dict_input_segment['quantlist'])
-        
-        
+    
         if indh==0:
             df_coefs=pd.DataFrame(index=df_quantcoef.index)
             df_coefs['quantile']=df_quantcoef['quantile']
@@ -625,7 +625,7 @@ def postrun_segment(dict_output_segment, debug=False):
         else:
             wb.sheets.add(sheetname, after='Data')
                 # Set output sheet colors to blue
-            wb.sheets[sheetname].api.Tab.Colorindex = 23
+            wb.sheets[sheetname].api.Tab.ColorIndex = 23
             action = 'Created sheet ' + sheetname
     except:
         print('Unable to acess '+sheetname)
@@ -667,7 +667,10 @@ def postrun_segment(dict_output_segment, debug=False):
          print('Fail to save segment figure.')
 
     try:
-        sheet.pictures.add(fig, name='MyPlot', update=True, left=sheet.range('B12').left, top=sheet.range('B12').top, height=250, width=500)
+        pic=sheet.pictures.add(fig, name='MyPlot', update=True, left=sheet.range('B12').left, top=sheet.range('B12').top, height=250, width=500)
+        pic.height=250
+        pic.width=500
+        
         action = 'segment figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname
@@ -681,7 +684,10 @@ def postrun_segment(dict_output_segment, debug=False):
          print('Fail to save segment figure.')
     
     try:
-        sheet.pictures.add(fig2, name='MyPlot_2', update=True, left=sheet.range('B32').left, top=sheet.range('B32').top, height=250, width=500)
+        pic=sheet.pictures.add(fig2, name='MyPlot_2', update=True, left=sheet.range('B32').left, top=sheet.range('B32').top, height=250, width=500)
+        pic.height=250
+        pic.width=500
+        
         action = 'segment figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname
@@ -696,7 +702,10 @@ def postrun_segment(dict_output_segment, debug=False):
          print('Fail to save segment figure.')
     
     try:
-        sheet.pictures.add(fig3, name='MyPlot_3', update=True, left=sheet.range('B52').left, top=sheet.range('B52').top, height=230*nrg, width=500)
+        pic=sheet.pictures.add(fig3, name='MyPlot_3', update=True, left=sheet.range('B52').left, top=sheet.range('B52').top, height=230*nrg, width=500)
+        pic.height=230*nrg
+        pic.width=500
+        
         action = 'segment figure saved'
     except:
         action = 'Unable to add figure to sheet ' + sheetname
@@ -723,7 +732,7 @@ def postrun_segment(dict_output_segment, debug=False):
         else:
             wb.sheets.add(sheetname, after='Data')
                 # Set output sheet colors to blue
-            wb.sheets[sheetname].api.Tab.Colorindex = 23
+            wb.sheets[sheetname].api.Tab.ColorIndex = 23
             action = 'Created sheet ' + sheetname
     except:
         print('Unable to acess '+sheetname)
@@ -754,7 +763,10 @@ def postrun_segment(dict_output_segment, debug=False):
             print('Fail to save term structure figure.')
     
         try:
-            sheet.pictures.add(fig, name='Termplot_'+str(i), update=True, left=sheet.range('B3').left, top=sheet.range('B'+str(3+i*rs*21)).top, height=300*rs-40, width=200*cs)
+            pic=sheet.pictures.add(fig, name='Termplot_'+str(i), update=True, left=sheet.range('B3').left, top=sheet.range('B'+str(3+i*rs*21)).top, height=300*rs-40, width=200*cs)
+            pic.height=300*rs-40
+            pic.width=200*cs
+        
             action = 'Term structure figure saved'
         except:
             action = 'Unable to add figure to sheet ' + sheetname
