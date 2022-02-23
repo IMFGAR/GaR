@@ -210,7 +210,7 @@ class Partition(object):
             if len(var_list) > 1: # Run the partition
                 # Partitionning
                 plsdepvar=self.PLStarget[group]
-                plsavlreg=var_list
+                plsavlreg=[e for e in var_list if e not in self.PLStarget[group]]
                 
                 ## Fit the PLS
                 pls = PLS_DA(plsdepvar, plsavlreg,self.data)         
