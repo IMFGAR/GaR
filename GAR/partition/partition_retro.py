@@ -156,7 +156,6 @@ def partition_retro(**kwargs):
         log_frame=log_frame.append(log,ignore_index=True)
         return dall.head(),dall.head(),log_frame,-1
 
-    
 ## Generating the parition for the latest cutoff            
     [dp1,dl]=p_cutoff(dall,groups_dict,cutoffs[0],bench,method, benchcutoff, PLStarget, saveim=saveim)
 
@@ -182,7 +181,6 @@ def partition_retro(**kwargs):
 
     dpo=dp1
 
-    
     for i in range(1,len(cutoffs)):
 
         [dpn,dln]=p_cutoff(dall,groups_dict,cutoffs[i],bench,method, benchcutoff, PLStarget, saveim=saveim)    
@@ -199,6 +197,7 @@ def partition_retro(**kwargs):
         action="Retroplating for "  + retrovar
         log = pd.Series({'Time': tn, 'Action': action})
         log_frame=log_frame.append(log,ignore_index=True)
+    
 
     dl['cutoff']=sdate
     if method=='PLS':
@@ -209,14 +208,8 @@ def partition_retro(**kwargs):
 ## Compute the zscore for the final frame to makes them consistent
     group_vars = [x for x in groups_dict.keys()]
     for group in group_vars:
-        #print(group)
-        #print(dpo[group].iloc[0:10])
-        v=dpo[group].values
-        print('before',group,np.var(v))
         dpo[group] = zscore(dpo[group])
-        #print(dpo[group].iloc[0:10])
-        v=dpo[group].values
-        print('after',group,np.var(v))
+
         
     dpo.index.name=None
     dall.index.name=None
@@ -224,7 +217,7 @@ def partition_retro(**kwargs):
     dretro_final.index=dretro_final['date']
     dretro_final.index.name=None
 
-        
+ 
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
     action="Retroplating successfully finished." 
     log = pd.Series({'Time': tn, 'Action': action})
@@ -242,6 +235,7 @@ def partition_retro(**kwargs):
         dretro_final.drop(['country'],axis=1,inplace=True)
     except:
         pass
+
     return dretro_final,dl,log_frame,1
 #
 #if __name__ == "__main__":

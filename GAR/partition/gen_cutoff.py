@@ -34,8 +34,8 @@ def gen_cutoff (dall="default",groups_dict={}, startdate=date(year=1,month=1,day
         return -1
     
     dall = dall.fillna(method='ffill').copy()
-    dall = dall[dall.date>startdate]
-    dall = dall[dall.date<enddate]
+    dall = dall[dall.date>=startdate]
+    dall = dall[dall.date<=enddate]
     partition_dict = groups_dict # Variables per group (price, leverage, etc.)
     
     set_date=set([])

@@ -41,8 +41,6 @@ def p_cutoff(dall,groups_dict,cutoff,bench,method, benchcutoff, PLStarget, savei
     partition_dict = groups_dict
     variables=[]
     label_dict={}
-    
-
     for key, values in partition_dict.items():
         variables.extend(values)
         for e in values:
@@ -101,7 +99,6 @@ def p_cutoff(dall,groups_dict,cutoff,bench,method, benchcutoff, PLStarget, savei
         dl = p.loading; dl = add_id(dl, c_id_dict)
         dl.insert(0, 'variable_o', dl.index)
         dl.loc[:,'variable'] = dl.variable_o.apply(lambda x : label_dict[x])
-
         return [dp,dl]
         
 #    
