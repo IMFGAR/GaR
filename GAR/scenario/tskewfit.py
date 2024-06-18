@@ -158,7 +158,7 @@ def tskew_distance(quantile_list, cond_quant,
         """ Function which only depends on a given tau """
         return(tskew_ppf(tau, df=df, loc=loc, scale=scale, skew=skew))
 
-    tskew_ppf_vectorized = np.vectorize(tskew_tau, otypes=[np.float])
+    tskew_ppf_vectorized = np.vectorize(tskew_tau, otypes=[np.float64])
     
     theoretical_quant = tskew_ppf_vectorized(quantile_list)  
 

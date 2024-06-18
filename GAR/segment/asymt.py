@@ -33,8 +33,8 @@ def alpha_star_plain(alpha, nu1, nu2):
     return(top/bottom)
 
 ## To improve speed, vectorize the ancillary functions (used everywhere else)
-K = np.vectorize(K_plain, otypes=[np.float], cache=False)
-alpha_star = np.vectorize(alpha_star_plain, otypes=[np.float], cache=False)
+K = np.vectorize(K_plain, otypes=[np.float64], cache=False)
+alpha_star = np.vectorize(alpha_star_plain, otypes=[np.float64], cache=False)
 
 ###############################################################################
 #%% Expectation of the Assymetric student t, cf. Zhu and Galbraith JoE 2010
@@ -178,8 +178,8 @@ def D_prime_plain(nu):
     return((1/2)*pblock) # Pay attention to derivation rules...
 
 ## To improve speed, vectorize the ancillary functions (used everywhere else)
-D = np.vectorize(D_plain, otypes=[np.float], cache=False)
-D_prime = np.vectorize(D_prime_plain, otypes=[np.float], cache=False)
+D = np.vectorize(D_plain, otypes=[np.float64], cache=False)
+D_prime = np.vectorize(D_prime_plain, otypes=[np.float64], cache=False)
 
 ## Hessian is symmetric, just need to get one half of it (still 15 elements...)
 def phi_11(alpha, nu1, nu2, mu, sigma):
