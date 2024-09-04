@@ -124,7 +124,7 @@ class QuantileReg(object):
             #dp = dp.loc[dp.index != 'Intercept',:].copy()
             ## Add the scaling information
             dp.loc[:,'normalized'] = self.scaling
-            params = params.append(dp)
+            params = params._append(dp)
         
         ## For information,  coeffs from an OLS regression (conditional mean)
         mfit = self.mfit
@@ -157,7 +157,7 @@ class QuantileReg(object):
             dc.insert(0, 'tau', tau)
             dc = dc.set_index(predictors.index)
             dc.insert(1, 'realized_value', predictors.loc[:, self.depvar])    
-            cond_quantiles = cond_quantiles.append(dc)
+            cond_quantiles = cond_quantiles._append(dc)
                         
         ## Add the conditional mean
         dm = self.mfit.get_prediction(exog=predictors).summary_frame()

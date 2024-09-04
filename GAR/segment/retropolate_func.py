@@ -57,12 +57,12 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
         rgr_n = '{}_rgr'.format(pvar)
 
     ## Need to normalize: compute the zscore, per country 
-        de[pvar] = de.groupby(['country'])[pvar].apply(zscore)   
-        dl[pvar] = dl.groupby(['country'])[pvar].apply(zscore)
+        de[pvar] = de.groupby(['country'], group_keys=False)[pvar].apply(zscore)   
+        dl[pvar] = dl.groupby(['country'], group_keys=False)[pvar].apply(zscore)
     
     ## Compute the delta, per country (pay attention to the order, future second)
-        de[rgr_n] = de.groupby(['country'])[pvar].apply(lambda x: x - x.shift(-1))
-        dl[rgr_n] = dl.groupby(['country'])[pvar].apply(lambda x: x - x.shift(-1))     
+        de[rgr_n] = de.groupby(['country'], group_keys=False)[pvar].apply(lambda x: x - x.shift(-1))
+        dl[rgr_n] = dl.groupby(['country'], group_keys=False)[pvar].apply(lambda x: x - x.shift(-1))     
 
 ###############################################################################
 #%% Index creation using the reverse delta
@@ -81,7 +81,7 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
 
     ## Isolate the middle frame without long time frame
     ef = de.loc[de.date < late_start_date, :]
-    ef = ef.sort_values(by='date', ascending=0) # Reverse cum sum !!
+    ef = ef.sort_values(by='date', ascending=False) # Reverse cum sum !!
 
 
     # 2. Compute the cumulative growth rate based only on the recent frame
@@ -103,7 +103,7 @@ def retropolate(dfearly,dflate,complete_early,groups_dict):
         dng['date'] = dng.index.values
         dng.index.name=None
         dng['country'] = de['country'].values[0]
-        dng = dng.sort_values(by='date', ascending=0)
+        dng = dng.sort_values(by='date', ascending=False)
 
         
         gr_cum = '{}_cum_rgr'.format(group)

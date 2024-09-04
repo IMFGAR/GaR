@@ -23,8 +23,6 @@ import matplotlib.pyplot as plt                       ## Plotting
 ###############################################################################
 #%% Plotting
 ###############################################################################
-## Style of the charts
-plt.style.use('seaborn-white')
 plt.close('all')  
 
 ###############################################################################
@@ -522,7 +520,7 @@ def postrun_tsfit(dict_output_tsfit, debug=False):
         # Add to log
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
     log = pd.Series({'Time': tn, 'Action': action})
-    log_frame = log_frame.append(log, ignore_index=True)
+    log_frame = log_frame._append(log, ignore_index=True)
         
     # end of loop over output sheetvars
 
@@ -551,7 +549,7 @@ def postrun_tsfit(dict_output_tsfit, debug=False):
         action='Unable to output t-skew fit result.'
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
     log = pd.Series({'Time': tn, 'Action': action})
-    log_frame=log_frame.append(log,ignore_index=True)
+    log_frame=log_frame._append(log,ignore_index=True)
 
     # Write out figure
     sheetname = dict_output_tsfit['sheet_tsfit']
@@ -615,7 +613,7 @@ def postrun_tsfit(dict_output_tsfit, debug=False):
     # Add to log
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
     log = pd.Series({'Time': tn, 'Action': action})
-    log_frame=log_frame.append(log,ignore_index=True)
+    log_frame=log_frame._append(log,ignore_index=True)
 
     # Write out log_frame
     add_logsheet(wb, log_frame, colnum=5)

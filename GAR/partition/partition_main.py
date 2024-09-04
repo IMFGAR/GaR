@@ -672,7 +672,7 @@ def run_partition(dict_input_partition, dict_groups, df_partition, debug=False):
     # Run the partition
     # ------------------------
     retroframe, retroload, logretro, exitcode = partition_retro(dall=df_partition, groups_dict=dict_groups, tdep=tdep, rgdp=rgdp, method_growth=method_growth, horizon=horizon, method=method, sdate=sdate, edate=edate, benchcutoff=benchcutoff,PLStarget=PLStarget)
-    log_frame = log_frame.append(logretro,ignore_index=True)
+    log_frame = log_frame._append(logretro,ignore_index=True)
     
     if exitcode==-1:
         message = 'In the given time period some groups are complete empty. No feasible partition can be made. Please adjust partition groups or start date'
@@ -742,7 +742,7 @@ def postrun_partition(dict_output_partition, debug=False):
         # Add to log
         tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
         log = pd.Series({'Time': tn, 'Action': action})
-        log_frame = log_frame.append(log, ignore_index=True)
+        log_frame = log_frame._append(log, ignore_index=True)
         
     # end of loop over output sheetvars
 
@@ -802,7 +802,7 @@ def postrun_partition(dict_output_partition, debug=False):
             action = 'Unable to add figure to sheet ' + sheetname
         tn = date.now().strftime('%Y-%m-%d %H:%M:%S')
         log = pd.Series({'Time': tn, 'Action': action})
-        log_frame = log_frame.append(log,ignore_index=True)
+        log_frame = log_frame._append(log,ignore_index=True)
         
         fig1 = dict_output_partition['figs'][1]
         if  dict_output_partition['method']=='PLS':

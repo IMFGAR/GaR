@@ -19,8 +19,7 @@ from matplotlib import gridspec
 ###############################################################################
 #%% Plotting
 ###############################################################################
-## Style of the charts
-plt.style.use('seaborn-white')
+
 
 def zscore(series):
     return((series - series.mean())/series.std(ddof=0))

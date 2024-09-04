@@ -716,7 +716,7 @@ def postrun_segment(dict_output_segment, debug=False):
     # Add to log
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
     log = pd.Series({'Time': tn, 'Action': action})
-    log_frame = log_frame.append(log, ignore_index=True)
+    log_frame = log_frame._append(log, ignore_index=True)
     
     sheetname = dict_output_segment['sheet_term']
     
@@ -773,7 +773,7 @@ def postrun_segment(dict_output_segment, debug=False):
             
         tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
         log = pd.Series({'Time': tn, 'Action': action})
-        log_frame = log_frame.append(log, ignore_index=True)
+        log_frame = log_frame._append(log, ignore_index=True)
         # Write out log_frame
     add_logsheet(wb, log_frame, colnum=3)
     

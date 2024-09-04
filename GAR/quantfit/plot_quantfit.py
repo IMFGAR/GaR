@@ -19,8 +19,7 @@ from matplotlib.ticker import FormatStrFormatter
 ###############################################################################
 #%% Plotting
 ###############################################################################
-## Style of the charts
-plt.style.use('seaborn-white')
+
 
 ## Charting parameters : size
 from pylab import rcParams

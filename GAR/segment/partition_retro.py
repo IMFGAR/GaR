@@ -119,14 +119,14 @@ def partition_retro(**kwargs):
 ## Calculating the growth
     dall['dummygrp']=1    
     if method_growth=='cpd':
-        dall.loc[:,tdep] = dall.groupby(['dummygrp'])[rgdp].apply(cum_gr,horizon=horizon)
+        dall.loc[:,tdep] =  dall.groupby(['dummygrp'], group_keys=False)[rgdp].apply(cum_gr,horizon=horizon)
     elif method_growth=='yoy':
-        dall.loc[:,tdep] = dall.groupby(['dummygrp'])[rgdp].apply(yoy_gr,horizon=horizon)
+        dall.loc[:,tdep] =  dall.groupby(['dummygrp'], group_keys=False)[rgdp].apply(yoy_gr,horizon=horizon)
         if horizon<4:
             dall = dall.iloc[4-horizon-1:]
             sdate=dall.index.values[0]
     elif method_growth=='level':
-        dall.loc[:,tdep] = dall.groupby(['dummygrp'])[rgdp].shift(-horizon)
+        dall.loc[:,tdep] =  dall.groupby(['dummygrp'], group_keys=False)[rgdp].shift(-horizon)
     else:
         # Assume data provided in the data sheet
         pass
@@ -196,7 +196,7 @@ def partition_retro(**kwargs):
                 retrovar+=e+", "
         action="Retroplating for "  + retrovar
         log = pd.Series({'Time': tn, 'Action': action})
-        log_frame=log_frame.append(log,ignore_index=True)
+        log_frame=log_frame._append(log,ignore_index=True)
     
 
     dl['cutoff']=sdate
@@ -221,7 +221,7 @@ def partition_retro(**kwargs):
     tn=date.now().strftime('%Y-%m-%d %H:%M:%S')
     action="Retroplating successfully finished." 
     log = pd.Series({'Time': tn, 'Action': action})
-    log_frame=log_frame.append(log,ignore_index=True)
+    log_frame=log_frame._append(log,ignore_index=True)
 #    writer = pd.ExcelWriter(xlname, engine='xlsxwriter')
 #    dretro_final.to_excel(writer, 'Partition data', index=False)
 #    dl.to_excel(writer, 'Loadings', index=False) # From the latest frame   
