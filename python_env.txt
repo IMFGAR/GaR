@@ -1,534 +1,668 @@
-absl-py==1.4.0
-aiobotocore==2.4.2
-aiohttp==3.9.5
-aioitertools==0.11.0
-aiosignal==1.3.1
-alabaster==0.7.12
-altair==5.1.0
-anyio==3.5.0
-appdirs==1.4.4
-argcomplete==3.1.0
-argh==0.28.1
-argon2-cffi==21.3.0
-argon2-cffi-bindings==21.2.0
-arrow==1.2.3
-arviz==0.16.1
-asgiref==3.8.1
-asn1crypto==1.5.1
-astor==0.8.1
-astroid==2.14.2
-astropy==5.1
-asttokens==2.0.5
-astunparse==1.6.3
-async-generator==1.10
-async-timeout==4.0.3
-atomicwrites==1.4.0
-attrs==22.1.0
-Automat==20.2.0
-autopep8==1.6.0
-Babel==2.11.0
-backcall==0.2.0
-backoff==2.2.1
-backports.os==0.1.1
-backports.shutil-get-terminal-size==1.0.0
-bcrypt==3.2.0
-beautifulsoup4==4.11.1
-binaryornot==0.4.4
-bitarray==2.8.0
-black==22.6.0
-bleach==4.1.0
-blinker==1.6.2
-blis==0.7.10
-blosc==1.11.1
-bokeh==2.4.3
-botocore==1.27.59
-Bottleneck==1.3.5
-Brotli==1.0.9
-brotlipy==0.7.0
-cachetools==5.3.3
-catalogue==2.0.9
-certifi==2023.5.7
-cffi==1.15.1
-cftime==1.6.2
-chainer==7.8.1
-chardet==4.0.0
-charset-normalizer==2.0.4
-chest==0.2.3
-click==8.0.4
-cloudpickle==2.0.0
-clr-loader==0.2.6
-cmake==3.27.2
-colorama==0.4.6
-colorcet==3.0.1
-comm==0.1.2
-comtypes==1.2.0
-confection==0.1.4
-ConfigArgParse==1.7
-configobj==5.0.8
-constantly==15.1.0
-contextlib2==21.6.0
-contourpy==1.0.5
-cookiecutter==1.7.3
-corner==2.2.2
-coverage==7.3.0
-cramjam==2.8.3
-cryptography==39.0.1
-cssselect==1.1.0
-cvxopt==1.3.2
-cvxpy==1.3.2
-cvxpy-base==1.3.2
-cycler==0.11.0
-cymem==2.0.7
-Cython==3.0.2
-cytoolz==0.12.0
-daal4py==2023.0.1
-dash==2.17.0
-dash-bootstrap-components==1.4.2
-dash-core-components==2.0.0
-dash-cytoscape==0.3.0
-dash-html-components==2.0.0
-dash-table==5.0.0
-dask==2022.7.0
-datashader==0.14.4
-datashape==0.5.2
-dateparser==1.2.0
-DateTime==5.1
-dbnomics==1.2.5
-debugpy==1.5.1
-decorator==5.1.1
-defusedxml==0.7.1
-deprecation==2.1.0
-diff-match-patch==20200713
-dill==0.3.6
-distributed==2022.7.0
-distro==1.9.0
-Django==5.0.6
-docstring-to-markdown==0.11
-docutils==0.18.1
-dpcpp-cpp-rt==2024.1.0
-ecos==2.0.12
-eikon==1.1.16
-emcee==3.1.4
-entrypoints==0.4
-et-xmlfile==1.1.0
-executing==0.8.3
-fastjsonschema==2.16.2
-fastparquet==2023.7.0
-filelock==3.9.0
-flake8==6.0.0
-Flask==2.2.2
-flatbuffers==24.3.25
-flit_core==3.6.0
-fonttools==4.25.0
-formulaic==1.0.1
-fredapi==0.5.1
-freetype-py==2.4.0
-frozenlist==1.4.1
-fsspec==2022.11.0
-future==0.18.3
-gast==0.4.0
-gevent==23.7.0
-gif==23.3.0
-gitdb==4.0.10
-GitPython==3.1.32
-google-auth==2.29.0
-google-auth-oauthlib==0.4.6
-google-pasta==0.2.0
-graphviz==0.20.1
-greenlet==2.0.1
-grpcio==1.64.0
-gsl==0.0.3
-h11==0.14.0
-h2==4.1.0
-h5netcdf==1.3.0
-h5py==3.7.0
-Haver==3.2.1
-HeapDict==1.0.1
-holoviews==1.15.4
-hpack==4.0.0
-html5lib==1.1
-httpcore==1.0.5
-httplib2==0.22.0
-httpx==0.27.0
-huggingface-hub==0.10.1
-hvplot==0.8.2
-hyperframe==5.2.0
-hyperlink==21.0.0
-idna==3.4
-image==1.5.33
-imagecodecs==2021.8.26
-imageio==2.26.0
-imagesize==1.4.1
-imbalanced-learn==0.10.1
-importlib-metadata==4.11.3
-incremental==21.3.0
-indexed-bzip2==1.5.0
-inflection==0.5.1
-iniconfig==1.1.1
-intake==0.6.7
-intel-cmplr-lib-rt==2024.1.0
-intel-cmplr-lic-rt==2024.1.0
-intel-opencl-rt==2024.1.0
-intel-openmp==2024.1.0
-interface-meta==1.3.0
-interpolation==2.2.4
-intervaltree==3.1.0
-ipykernel==6.19.2
-ipython==8.10.0
-ipython-genutils==0.2.0
-ipywidgets==7.6.5
-isort==5.9.3
-itemadapter==0.3.0
-itemloaders==1.0.4
-itsdangerous==2.0.1
-jax==0.4.25
-jaxlib==0.4.25
-jdcal==1.4.1
-jedi==0.18.1
-jellyfish==0.9.0
-Jinja2==3.1.2
-jinja2-time==0.2.0
-jmespath==0.10.0
-joblib==1.1.1
-json5==0.9.6
-jsonschema==4.17.3
-jupyter==1.0.0
-jupyter-client==7.3.4
-jupyter-console==6.6.2
-jupyter-server==1.23.4
-jupyter_core==5.2.0
-jupyter_packaging==0.12.3
-jupyterlab==3.5.3
-jupyterlab-pygments==0.1.2
-jupyterlab-widgets==1.0.0
-jupyterlab_server==2.19.0
-jwt==1.3.1
-kaleido==0.2.1
-keras==2.10.0
-Keras-Applications==1.0.8
-Keras-Preprocessing==1.1.2
-keyring==23.4.0
-kiwisolver==1.4.4
-langcodes==3.4.0
-language_data==1.2.0
-lazy-object-proxy==1.6.0
-lerc==4.0.1
-libclang==16.0.6
-libcurl-ct==7.84.0a2
-lime==0.2.0.1
-linearmodels==5.1
-llvmlite==0.40.1
-locket==1.0.0
-lxml==4.9.1
-lz4==4.3.2
-marisa-trie==1.1.1
-Markdown==3.4.1
-markdown-it-py==3.0.0
-MarkupSafe==2.1.1
-matplotlib==3.7.0
-matplotlib-inline==0.1.6
-mccabe==0.7.0
-mdurl==0.1.2
-missingno==0.5.2
-mistune==0.8.4
-mkl==2024.1.0
-mkl-fft==1.3.6
-mkl-random==1.2.2
-mkl-service==2.4.1
-ml-dtypes==0.3.2
-more-itertools==10.2.0
-mpmath==1.2.1
-msgpack==1.0.3
-multidict==6.0.5
-multipledispatch==0.6.0
-munkres==1.1.4
-murmurhash==1.0.10
-mypy-extensions==0.4.3
-nbclassic==0.5.2
-nbclient==0.5.13
-nbconvert==6.5.4
-nbformat==5.7.0
-nest-asyncio==1.5.6
-netCDF4==1.6.4
-networkx==2.8.4
-nltk==3.7
-nose==1.3.7
-notebook==6.5.2
-notebook_shim==0.2.2
-numba==0.57.1
-numexpr==2.8.4
-numpy==1.24.4
-numpydoc==1.5.0
-oauthlib==3.2.2
-odo==0.5.0
-olefile==0.46
-openai==1.34.0
-openpyxl==3.0.10
-openssl-engine==1.1.1
-opt-einsum==3.3.0
-ordered-set==4.1.0
-osqp==0.6.3
-packaging==21.3
-pandas==1.5.3
-pandas-datareader==0.10.0
-pandaSDMX==1.10.0
-pandasql==0.7.3
-pandoc==2.3
-pandocfilters==1.5.0
-panel==0.14.3
-param==1.12.3
-paramiko==2.8.1
-parsel==1.6.0
-parso==0.8.3
-partd==1.2.0
-path==16.7.1
-path.py==12.5.0
-pathlib2==2.3.7.post1
-pathlib_abc==0.1.1
-pathspec==0.10.3
-pathy==0.11.0
-patsy==0.5.3
-pdfminer.six==20221105
-pdfrw==0.4
-pexpect==4.8.0
-pgeocode==0.5.0
-picklable-itertools==0.1.1
-pickleshare==0.7.5
-Pillow==9.4.0
-pkginfo==1.9.6
-plac==1.3.5
-platformdirs==2.5.2
-plotly==5.16.1
-pluggy==1.0.0
-plumbum==1.8.3
-ply==3.11
-pmdarima==2.0.3
-pooch==1.4.0
-poyo==0.5.0
-preshed==3.0.8
-progressbar2==4.2.0
-prometheus-client==0.14.1
-prompt-toolkit==3.0.36
-property-cached==1.6.4
-Protego==0.1.16
-protobuf==3.20.3
-psutil==5.9.0
-ptyprocess==0.7.0
-pure-eval==0.2.2
-py==1.11.0
-pyarrow==13.0.0
-pyasn1==0.4.8
-pyasn1-modules==0.2.8
-pyblas==0.0.10
-pycfitsio==0.3.0
-pycodestyle==2.10.0
-pycountry==22.3.5
-pycparser==2.21
-pycryptodome==3.18.0
-pyct==0.4.8
-pydantic==1.10.12
-pydeck==0.8.0
-PyDispatcher==2.0.5
-pydocstyle==6.3.0
-pyFFTW==0.13.1
-pyflakes==3.0.1
-Pygments==2.18.0
-PyHamcrest==2.0.2
-pyhdfe==0.2.0
-pykalman==0.9.5
-PyLaTeX==1.4.1
-pylint==2.16.2
-pylint-venv==2.3.0
-pyls-spyder==0.4.0
-PyNaCl==1.5.0
-pyodbc==4.0.39
-pyOpenSSL==23.0.0
-pyparsing==3.0.9
-PyPDF2==3.0.1
-pypiwin32==223
-pyproj==3.6.0
-PyQt5==5.15.7
-PyQt5-Qt5==5.15.2
-PyQt5-sip==12.11.0
-PyQtWebEngine==5.15.6
-PyQtWebEngine-Qt5==5.15.2
-pyreadline==2.1
-pyreadline3==3.4.1
-pyrsistent==0.18.0
-pyshp==2.3.1
-PySocks==1.7.1
-pytest-runner==6.0.0
-python-dateutil==2.8.2
-python-docx==0.8.11
-python-jsonrpc-server==0.4.0
-python-lsp-black==1.2.1
-python-lsp-jsonrpc==1.0.0
-python-lsp-server==1.7.1
-python-markdown-math==0.8
-python-slugify==5.0.2
-python-snappy==0.6.1
-python-utils==3.7.0
-pythonnet==3.0.2
-pytk==0.0.2.1
-pytoolconfig==1.2.5
-pytz==2022.7
-pyviz-comms==2.0.2
-PyWavelets==1.4.1
-pywin32==305
-pywin32-ctypes==0.2.0
-pywinpty==2.0.10
-PyYAML==6.0
-pyzmq==23.2.0
-QDarkStyle==3.0.2
-qdldl==0.1.7.post0
-qstylizer==0.2.2
-QtAwesome==1.2.2
-qtconsole==5.4.0
-QtPy==2.2.0
-Quandl==3.7.0
-quantecon==0.7.1
-QuantLib==1.31.1
-queuelib==1.5.0
-regex==2022.7.9
-reportlab==4.0.4
-requests==2.28.1
-requests-file==1.5.1
-requests-negotiate-sspi==0.5.2
-requests-oauthlib==1.3.1
-retrying==1.3.4
-rfc3986==1.5.0
-rich==13.5.2
-rope==1.7.0
-rsa==4.9
-Rtree==1.0.1
-ruamel.yaml==0.17.21
-ruamel.yaml.clib==0.2.6
-s3fs==2022.11.0
-schwimmbad==0.3.2
-scikit-image==0.19.3
-scikit-learn==1.2.1
-scikit-learn-intelex==2023.0.1
-scikit-misc==0.3.0
-scipy==1.10.0
-Scrapy==2.8.0
-scs==3.2.3
-seaborn==0.12.2
-Send2Trash==1.8.0
-service-identity==18.1.0
-setuptools-scm==7.1.0
-shap==0.42.1
-shelved-cache==0.3.1
-simplegeneric==0.8.1
-singledispatch==4.1.0
-sip==6.6.2
-six==1.16.0
-slicer==0.0.7
-smart-open==5.2.1
-smmap==5.0.1
-sniffio==1.2.0
-snowballstemmer==2.2.0
-sockjs-tornado==1.0.7
-sortedcollections==2.1.0
-sortedcontainers==2.4.0
-soupsieve==2.3.2.post1
-spacy==3.6.1
-spacy-legacy==3.0.12
-spacy-loggers==1.0.5
-Sphinx==5.0.2
-sphinx-rtd-theme==1.3.0
-sphinxcontrib-applehelp==1.0.2
-sphinxcontrib-devhelp==1.0.2
-sphinxcontrib-htmlhelp==2.0.0
-sphinxcontrib-jquery==4.1
-sphinxcontrib-jsmath==1.0.1
-sphinxcontrib-qthelp==1.0.3
-sphinxcontrib-serializinghtml==1.1.5
-sphinxcontrib-websupport==1.2.6
-spyder==5.4.1
-spyder-kernels==2.4.1
-SQLAlchemy==1.4.39
-sqlparse==0.5.0
-srsly==2.4.8
-stack-data==0.2.0
-statsmodels==0.14.0
-sympy==1.11.1
-tables==3.7.0
-tabula-py==2.7.0
-tabulate==0.8.10
-tbb==2021.9.0
-tbb4py==2021.9.0
-tblib==1.7.0
-Tempita==0.5.2
-tenacity==8.1.0
-tensorboard==2.10.1
-tensorboard-data-server==0.6.1
-tensorboard-plugin-wit==1.8.1
-tensorflow==2.10.0
-tensorflow-estimator==2.10.0
-tensorflow-io-gcs-filesystem==0.31.0
-termcolor==2.3.0
-terminado==0.17.1
-testpath==0.6.0
-text-unidecode==1.3
-textblob==0.17.1
-textdistance==4.2.1
-thinc==8.1.12
-threadpoolctl==2.2.0
-three-merge==0.1.1
-tifffile==2021.7.2
-tinycss2==1.2.1
-tk==0.1.0
-tldextract==3.2.0
-tokenizers==0.11.4
-toml==0.10.2
-tomli==2.0.1
-tomlkit==0.11.1
-toolz==0.12.0
-torch==1.12.1
-tornado==6.1
-tqdm==4.64.1
-traitlets==5.7.1
-transformers==4.24.0
-Twisted==22.2.0
-twisted-iocpsupport==1.0.2
-typer==0.9.4
-typing==3.7.4.3
-typing_extensions==4.7.1
-tzdata==2023.4
-tzlocal==5.2
-ujson==5.4.0
-unicodecsv==0.14.1
-Unidecode==1.2.0
-urllib3==1.26.14
-utils-misc==0.1.0
-vc==2018.7.10
-w3lib==1.21.0
-wasabi==1.1.2
-watchdog==2.1.6
-wbdata==1.0.0
-wcwidth==0.2.5
-webencodings==0.5.1
-websocket-client==0.58.0
-Werkzeug==2.2.2
-whatthepatch==1.0.2
-widgetsnbextension==3.5.2
-win-inet-pton==1.1.0
-win-unicode-console==0.5
-wordcloud==1.9.2
-wrapt==1.14.1
-xarray==2022.11.0
-xarray-einstats==0.7.0
-xlrd==2.0.1
-XlsxWriter==3.1.2
-xlwings==0.29.1
-xlwt==1.3.0
-yapf==0.31.0
-yarl==1.9.4
-zfp==0.0.0
-zict==2.1.0
-zipp==3.11.0
-Zope==5.6
-zope.event==5.0
-zope.interface==5.5.0
-zstandard==0.19.0
-zstd==1.5.5.1
+Package                            Version
+---------------------------------- --------------
+absl-py                            2.0.0
+AccessControl                      7.0
+Acquisition                        6.0
+aiobotocore                        2.5.4
+aiohttp                            3.9.3
+aioitertools                       0.11.0
+aiosignal                          1.3.1
+alabaster                          0.7.14
+altair                             5.3.0
+anyio                              4.2.0
+appdirs                            1.4.4
+argcomplete                        3.2.2
+argh                               0.31.1
+argon2-cffi                        21.3.0
+argon2-cffi-bindings               21.2.0
+arrow                              1.3.0
+arviz                              0.17.0
+asgiref                            3.8.1
+asn1crypto                         1.5.1
+astor                              0.8.1
+astroid                            2.15.8
+astropy                            5.3.4
+asttokens                          2.3.0
+astunparse                         1.6.3
+async-generator                    1.10
+async-lru                          2.0.4
+async-timeout                      4.0.3
+atomicwrites                       1.4.1
+attrs                              23.1.0
+AuthEncoding                       5.0
+Automat                            22.10.0
+autopep8                           2.0.4
+Babel                              2.13.1
+backcall                           0.2.0
+backports.functools-lru-cache      1.6.5
+backports.os                       0.1.1
+backports.shutil-get-terminal-size 1.0.0
+backports.tempfile                 1.0
+backports.weakref                  1.0.post1
+bcrypt                             4.0.1
+beautifulsoup4                     4.12.2
+binaryornot                        0.4.4
+bitarray                           2.9.0
+black                              23.11.0
+bleach                             6.0.0
+blinker                            1.8.2
+blis                               0.7.11
+blosc                              1.11.2
+blosc2                             2.2.9
+bokeh                              3.3.4
+boltons                            23.0.0
+botocore                           1.31.17
+Bottleneck                         1.3.7
+Brotli                             1.1.0
+brotlipy                           0.7.0
+BTrees                             6.0
+bz2file                            0.98
+cachetools                         5.3.2
+catalogue                          2.0.10
+Cerberus                           1.3.5
+certifi                            2024.2.2
+cffi                               1.16.0
+cftime                             1.6.3
+chainer                            7.8.1
+Chameleon                          4.5.4
+chardet                            5.2.0
+charset-normalizer                 3.3.0
+chest                              0.2.3
+clarabel                           0.7.0
+click                              8.1.7
+cloudpathlib                       0.16.0
+cloudpickle                        2.2.1
+clr-loader                         0.2.6
+clyent                             1.2.1
+cmake                              3.28.4
+colorama                           0.4.6
+colorcet                           3.0.1
+comm                               0.1.4
+comtypes                           1.4.0
+confection                         0.1.5
+ConfigArgParse                     1.7
+configobj                          5.0.8
+configparse                        0.1.5
+constantly                         23.10.4
+contextlib2                        21.6.0
+contourpy                          1.2.0
+cookiecutter                       2.5.0
+corner                             2.2.2
+coverage                           7.5.0
+cramjam                            2.8.3
+cryptography                       42.0.2
+cssselect                          1.2.0
+cvxopt                             1.3.2
+cvxpy                              1.4.2
+cvxpy-base                         1.4.2
+cycler                             0.12.0
+cymem                              2.0.8
+Cython                             3.0.8
+cytoolz                            0.12.2
+daal4py                            2024.0.1
+dash                               2.17.1
+dash-bootstrap-components          1.6.0
+dash-core-components               2.0.0
+dash_cytoscape                     1.0.1
+dash-html-components               2.0.0
+dash-table                         5.0.0
+dask                               2023.11.0
+datashader                         0.16.0
+datashape                          0.5.2
+DateTime                           5.4
+dbnomics                           1.2.5
+debugpy                            1.8.0
+decorator                          5.1.1
+defusedxml                         0.7.1
+deprecation                        2.1.0
+diff-match-patch                   20230430
+dill                               0.3.8
+distlib                            0.3.8
+distributed                        2023.11.0
+distro                             1.8.0
+Django                             5.0.7
+docopt                             0.6.2
+docstring-to-markdown              0.13
+DocumentTemplate                   4.6
+docutils                           0.20.1
+dpcpp-cpp-rt                       2024.1.2
+ecos                               2.0.14
+eikon                              1.1.18
+emcee                              3.1.6
+entrypoints                        0.4
+et-xmlfile                         1.1.0
+eurostat                           1.1.0
+executing                          2.0.1
+ExtensionClass                     5.1
+fastjsonschema                     2.19.0
+fastparquet                        2024.5.0
+filelock                           3.13.1
+flake8                             6.1.0
+Flask                              2.3.2
+flatbuffers                        24.3.25
+flit_core                          3.9.0
+fonttools                          4.45.0
+formulaic                          1.0.2
+fredapi                            0.5.2
+freetype-py                        2.4.0
+frozenlist                         1.4.0
+fsspec                             2023.9.2
+future                             0.18.3
+gast                               0.5.4
+gensim                             4.3.1
+gevent                             23.9.1
+gif                                23.3.0
+gitdb                              4.0.11
+GitPython                          3.1.43
+gmpy2                              2.1.5
+google-auth                        2.32.0
+google-auth-oauthlib               1.0.0
+google-pasta                       0.2.0
+graphviz                           0.20.3
+greenlet                           3.0.1
+grpcio                             1.59.3
+gsl                                0.0.3
+h11                                0.14.0
+h2                                 4.1.0
+h5netcdf                           1.3.0
+h5py                               3.10.0
+Haver                              3.2.3
+HeapDict                           1.0.1
+holoviews                          1.18.3
+hpack                              4.0.0
+html5lib                           1.1
+httpcore                           1.0.5
+httplib2                           0.22.0
+httpx                              0.27.0
+huggingface                        0.0.1
+huggingface-hub                    0.22.2
+hvplot                             0.9.2
+hyperframe                         6.0.1
+hyperlink                          21.0.0
+idna                               3.5
+image                              1.5.33
+imagecodecs                        2023.9.18
+imageio                            2.33.1
+imagesize                          1.4.1
+imbalanced-learn                   0.11.0
+importlib-metadata                 7.0.1
+incremental                        22.10.0
+indexed-bzip2                      1.5.0
+inflection                         0.5.1
+iniconfig                          2.0.0
+intake                             0.7.0
+intel-cmplr-lib-rt                 2024.1.2
+intel-cmplr-lic-rt                 2024.1.2
+intel-opencl-rt                    2024.1.2
+intel-openmp                       2024.1.2
+interface-meta                     1.3.0
+interpolation                      2.2.6
+intervaltree                       3.1.0
+ipykernel                          6.29.5
+ipython                            8.20.0
+ipython-genutils                   0.2.0
+ipywidgets                         8.1.1
+isort                              5.13.0
+itemadapter                        0.8.0
+itemloaders                        1.1.0
+itsdangerous                       2.1.2
+jaraco.classes                     3.3.0
+jax                                0.4.30
+jaxlib                             0.4.30
+jdcal                              1.4.1
+jedi                               0.19.0
+jellyfish                          1.0.1
+Jinja2                             3.1.3
+jinja2-time                        0.2.0
+jiter                              0.5.0
+jmespath                           1.0.1
+joblib                             1.3.2
+JPype1                             1.5.0
+json5                              0.9.11
+jsonpatch                          1.33
+jsonpointer                        2.4
+jsonschema                         4.19.2
+jsonschema-specifications          2023.7.1
+jupyter                            1.0.0
+jupyter_client                     8.6.0
+jupyter-console                    6.6.3
+jupyter_core                       5.5.0
+jupyter-events                     0.8.0
+jupyter-lsp                        2.2.0
+jupyter_packaging                  0.12.3
+jupyter_server                     2.10.0
+jupyterlab                         4.0.11
+jupyterlab_pygments                0.3.0
+jupyterlab_server                  2.25.1
+jupyterlab-widgets                 3.0.9
+jwt                                1.3.1
+kaleido                            0.2.1
+keras                              2.14.0
+Keras-Applications                 1.0.8
+keyring                            24.2.0
+kiwisolver                         1.4.4
+langcodes                          3.4.0
+language_data                      1.2.0
+lazy_loader                        0.3
+lazy-object-proxy                  1.9.0
+lckr_jupyterlab_variableinspector  3.1.0
+lerc                               4.0.1
+libarchive-c                       5.0
+libclang                           16.0.6
+libcurl-ct                         7.84.0a2
+lief                               0.13.2
+lime                               0.2.0.1
+linearmodels                       5.3
+llvmlite                           0.42.0
+lmdb                               1.4.1
+locket                             1.0.0
+lxml                               4.9.3
+lz4                                4.3.2
+marisa-trie                        1.2.0
+Markdown                           3.5.1
+markdown-it-py                     3.0.0
+MarkupSafe                         2.1.3
+matplotlib                         3.8.0
+matplotlib-inline                  0.1.6
+mccabe                             0.7.0
+mdit-py-plugins                    0.4.0
+mdurl                              0.1.2
+missingno                          0.5.2
+mistune                            3.0.0
+mkl                                2024.1.0
+mkl-fft                            1.3.8
+mkl-random                         1.2.4
+mkl-service                        2.4.1
+ml-dtypes                          0.2.0
+more-itertools                     10.2.0
+mpmath                             1.3.0
+msgpack                            1.0.7
+multidict                          6.0.4
+MultiMapping                       5.0
+multipart                          0.2.5
+multipledispatch                   1.0.0
+multiprocess                       0.70.16
+munkres                            1.1.4
+murmurhash                         1.0.10
+mypy                               1.8.0
+mypy-extensions                    1.0.0
+nbclassic                          1.0.0
+nbclient                           0.9.0
+nbconvert                          7.11.0
+nbformat                           5.9.2
+nest-asyncio                       1.6.0
+netcdf                             66.0.2
+netCDF4                            1.6.5
+networkx                           3.2
+nltk                               3.8.1
+nose                               1.3.7
+notebook                           7.0.8
+notebook_shim                      0.2.3
+numba                              0.59.0
+numexpr                            2.8.7
+numpy                              1.26.4
+numpydoc                           1.6.0
+oauthlib                           3.2.2
+odo                                0.5.0
+olefile                            0.47
+openai                             1.40.6
+openpyxl                           3.1.2
+openssl-engine                     1.3.1
+opt-einsum                         3.3.0
+ordered-set                        4.1.0
+osqp                               0.6.4
+overrides                          7.4.0
+packaging                          23.1
+pandas                             2.1.4
+pandas-datareader                  0.10.0
+pandaSDMX                          1.10.0
+pandasql                           0.7.3
+pandoc                             2.3
+pandocfilters                      1.5.0
+panel                              1.3.8
+param                              2.0.2
+paramiko                           3.3.1
+parsel                             1.8.1
+parso                              0.8.3
+partd                              1.4.1
+PasteDeploy                        3.1.0
+path                               16.10.0
+path.py                            12.5.0
+pathlib                            1.0.1
+pathlib2                           2.3.7.post1
+pathspec                           0.11.2
+patsy                              0.5.3
+pcre2                              0.3.0
+pdfminer.six                       20240706
+pdfrw                              0.4
+pep517                             0.13.1
+Persistence                        5.0
+persistent                         6.0
+pexpect                            4.8.0
+picklable-itertools                0.1.1
+pickleshare                        0.7.5
+pillow                             10.2.0
+pip                                24.0
+pip-api                            0.0.34
+pipreqs                            0.4.13
+pkce                               1.0.3
+pkginfo                            1.9.6
+plac                               1.4.3
+platformdirs                       3.10.0
+plette                             2.1.0
+plotly                             5.17.0
+pluggy                             1.3.0
+plumbum                            1.8.3
+ply                                3.11
+pmdarima                           2.0.4
+pooch                              1.8.0
+poyo                               0.5.0
+preshed                            3.0.9
+progressbar2                       4.4.2
+prometheus-client                  0.18.0
+prompt-toolkit                     3.0.43
+property-cached                    1.6.4
+Protego                            0.3.0
+protobuf                           3.20.3
+psutil                             5.9.5
+ptyprocess                         0.7.0
+pure-eval                          0.2.2
+py                                 1.11.0
+py-cpuinfo                         9.0.0
+pyarrow                            16.1.0
+pyasn1                             0.5.0
+pyasn1-modules                     0.3.0
+pybind11                           2.12.0
+pyblas                             0.0.10
+pycfitsio                          0.3.0
+pycodestyle                        2.11.0
+pycountry                          24.6.1
+pycparser                          2.21
+pycryptodome                       3.20.0
+pyct                               0.5.0
+pydantic                           1.10.13
+pydeck                             0.9.1
+PyDispatcher                       2.0.7
+pydocstyle                         6.3.0
+pyerfa                             2.0.1
+pyFFTW                             0.13.1
+pyflakes                           3.1.0
+Pygments                           2.16.1
+PyHamcrest                         2.1.0
+pyhdfe                             0.2.0
+PyJWT                              2.8.0
+pykalman                           0.9.7
+PyLaTeX                            1.4.2
+pylint                             2.17.7
+pylint-venv                        3.0.2
+pyls-spyder                        0.4.0
+PyNaCl                             1.5.0
+pyodbc                             5.0.1
+pyOpenSSL                          24.0.0
+pyparsing                          3.1.1
+pypdf                              4.2.0
+PyPDF2                             3.0.1
+pypiwin32                          223
+pyproj                             3.6.1
+PyQt5                              5.15.10
+PyQt5-Qt5                          5.15.2
+PyQt5-sip                          12.13.0
+PyQtWebEngine                      5.15.6
+PyQtWebEngine-Qt5                  5.15.2
+pyreadline                         2.1
+pyreadline3                        3.4.1
+pyrsistent                         0.20.0
+pyshp                              2.3.1
+PySocks                            1.7.1
+pytest                             7.4.0
+pytest-runner                      6.0.1
+python-dateutil                    2.8.2
+python-docx                        1.0.0
+python-dotenv                      1.0.0
+python-gettext                     5.0
+python-json-logger                 2.0.7
+python-jsonrpc-server              0.4.0
+python-lsp-black                   1.3.0
+python-lsp-jsonrpc                 1.1.2
+python-lsp-server                  1.9.0
+python-markdown-math               0.8
+python-slugify                     8.0.1
+python-snappy                      0.7.1
+python-utils                       3.8.1
+pythonnet                          3.0.3
+pytk                               0.0.2.1
+pytoolconfig                       1.2.6
+pytz                               2023.3.post1
+pyviz_comms                        3.0.0
+PyWavelets                         1.5.0
+pywin32                            306
+pywin32-ctypes                     0.2.2
+pywinpty                           2.0.11
+PyYAML                             6.0.1
+pyzmq                              25.1.2
+QDarkStyle                         3.2
+qdldl                              0.1.7.post3
+qstylizer                          0.2.2
+QtAwesome                          1.2.3
+qtconsole                          5.5.2
+QtPy                               2.4.1
+Quandl                             3.7.0
+quantecon                          0.7.2
+QuantLib                           1.33
+queuelib                           1.6.2
+referencing                        0.30.2
+regex                              2023.10.3
+reportlab                          4.1.0
+requests                           2.31.0
+requests-file                      2.0.0
+requests-negotiate-sspi            0.5.2
+requests-oauthlib                  2.0.0
+requests-toolbelt                  1.0.0
+requirementslib                    3.0.0
+RestrictedPython                   7.2a1.dev0
+retrying                           1.3.4
+rfc3339                            6.2
+rfc3339-validator                  0.1.4
+rfc3986                            2.0.0
+rfc3986-validator                  0.1.1
+rich                               13.7.1
+roman                              4.2
+rope                               1.10.0
+rpds-py                            0.10.6
+rsa                                4.9
+Rtree                              1.1.0
+ruamel.yaml                        0.17.40
+ruamel.yaml.clib                   0.2.8
+s3fs                               2023.9.2
+safetensors                        0.4.2
+schwimmbad                         0.4.0
+scikit-image                       0.22.0
+scikit-learn                       1.3.1
+scikit-learn-intelex               2023.2.1
+scikit-misc                        0.3.0
+scipy                              1.11.4
+Scrapy                             2.11.0
+scs                                3.2.4
+seaborn                            0.13.0
+semver                             3.0.1
+Send2Trash                         1.8.2
+service-identity                   23.1.0
+setuptools                         65.5.0
+setuptools-scm                     7.1.0
+shap                               0.44.1
+simplegeneric                      0.8.1
+singledispatch                     4.1.0
+sip                                6.7.12
+six                                1.16.0
+slicer                             0.0.7
+smart-open                         6.4.0
+smmap                              5.0.1
+snappy                             3.1.1
+sniffio                            1.3.0
+snowballstemmer                    2.2.0
+sockjs-tornado                     1.0.7
+sortedcollections                  2.1.0
+sortedcontainers                   2.4.0
+soupsieve                          2.5
+spacy                              3.7.4
+spacy-legacy                       3.0.12
+spacy-loggers                      1.0.5
+Sphinx                             7.2.6
+sphinx-rtd-theme                   2.0.0
+sphinxcontrib-applehelp            1.0.7
+sphinxcontrib-devhelp              1.0.5
+sphinxcontrib-htmlhelp             2.0.4
+sphinxcontrib-jquery               4.1
+sphinxcontrib-jsmath               1.0.1
+sphinxcontrib-qthelp               1.0.6
+sphinxcontrib-serializinghtml      2.0.0
+sphinxcontrib-websupport           1.2.7
+spyder                             5.5.0
+spyder-kernels                     2.5.2
+SQLAlchemy                         2.0.25
+sqlparse                           0.5.1
+srsly                              2.4.8
+stack-data                         0.6.3
+statsmodels                        0.14.0
+streamlit                          1.30.0
+sympy                              1.12
+tables                             3.9.2
+tabula-py                          2.8.2
+tabulate                           0.9.0
+tbb                                2021.10.0
+tbb4py                             2021.10.0
+tblib                              3.0.0
+Tempita                            0.5.2
+tenacity                           8.2.3
+tensorboard                        2.14.1
+tensorboard-data-server            0.7.1
+tensorboard-plugin-wit             1.8.1
+tensorflow                         2.14.0
+tensorflow-estimator               2.14.0
+tensorflow-intel                   2.14.0
+tensorflow-io-gcs-filesystem       0.31.0
+termcolor                          2.4.0
+terminado                          0.18.0
+testpath                           0.6.0
+text-unidecode                     1.3
+TextBlob                           0.18.0
+textdistance                       4.6.0
+thinc                              8.2.5
+threadpoolctl                      3.2.0
+three-merge                        0.1.1
+tifffile                           2023.9.26
+tinycss2                           1.2.1
+tk                                 0.1.0
+tldextract                         3.5.0
+tokenizers                         0.15.1
+toml                               0.10.2
+tomli                              2.0.1
+tomlkit                            0.12.1
+toolz                              0.12.0
+torch                              2.1.0
+tornado                            6.3.3
+tqdm                               4.66.1
+traitlets                          5.10.1
+transaction                        4.0
+transformers                       4.39.2
+truststore                         0.8.0
+Twisted                            23.10.0
+twisted-iocpsupport                1.0.4
+typer                              0.9.4
+types-python-dateutil              2.9.0.20240316
+typing                             3.7.4.3
+typing_extensions                  4.12.2
+tzdata                             2023.4
+tzlocal                            5.1
+uc-micro-py                        1.0.2
+ujson                              5.8.0
+unicodecsv                         0.14.1
+Unidecode                          1.3.7
+urllib3                            1.26.19
+utils-misc                         0.1.0
+validators                         0.22.0
+vc                                 2018.7.10
+w3lib                              2.1.2
+waitress                           3.0.0
+wasabi                             1.1.3
+watchdog                           3.0.0
+wcwidth                            0.2.8
+weasel                             0.3.4
+webencodings                       0.5.1
+WebOb                              1.8.7
+websocket-client                   1.6.3
+WebTest                            3.0.0
+Werkzeug                           2.3.7
+whatthepatch                       1.0.5
+wheel                              0.41.2
+widgetsnbextension                 3.6.6
+win-inet-pton                      1.1.0
+win_unicode_console                0.5
+wordcloud                          1.9.3
+wrapt                              1.14.1
+WSGIProxy2                         0.5.1
+xarray                             2023.9.0
+xarray-einstats                    0.7.0
+xlrd                               2.0.1
+XlsxWriter                         3.2.0
+xlwings                            0.30.12
+xlwt                               1.3.0
+xyzservices                        2023.7.0
+yapf                               0.40.2
+yarg                               0.1.9
+yarl                               1.9.3
+z3c.pt                             4.3
+zc.lockfile                        3.0.post1
+ZConfig                            4.1
+zExceptions                        5.0
+zfp                                0.0.0
+zict                               3.0.0
+zipp                               3.17.0
+zlib-ng                            0.2.0
+ZODB                               6.0
+zodbpickle                         4.0
+Zope                               5.8.1
+zope.annotation                    5.0
+zope.browser                       3.0
+zope.browsermenu                   5.0
+zope.browserpage                   5.0
+zope.browserresource               5.1
+zope.cachedescriptors              5.0
+zope.component                     6.0
+zope.configuration                 5.0.1
+zope.container                     6.0
+zope.contentprovider               6.0
+zope.contenttype                   5.1
+zope.datetime                      5.0.0
+zope.deferredimport                5.0
+zope.deprecation                   5.0
+zope.dottedname                    6.0
+zope.event                         5.0
+zope.exceptions                    5.1
+zope.filerepresentation            6.0
+zope.globalrequest                 2.0
+zope.hookable                      6.0
+zope.i18n                          5.1
+zope.i18nmessageid                 6.1.0
+zope.interface                     6.0
+zope.lifecycleevent                5.0
+zope.location                      5.0
+zope.pagetemplate                  5.1
+zope.processlifetime               3.0
+zope.proxy                         5.2
+zope.ptresource                    5.0
+zope.publisher                     7.0
+zope.schema                        7.0.1
+zope.security                      7.0
+zope.sequencesort                  5.0
+zope.site                          5.0
+zope.size                          5.0
+zope.structuredtext                5.0
+zope.tal                           5.0.1
+zope.tales                         6.0
+zope.testbrowser                   7.0
+zope.testing                       5.0.1
+zope.traversing                    5.0
+zope.viewlet                       5.0
+zstandard                          0.21.0
+zstd                               1.5.5.1
