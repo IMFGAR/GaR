@@ -160,7 +160,7 @@ def asymt_distance(quantile_list, cond_quant,
         """ Function which only depends on a given tau """
         return(asymt_ppf(tau, alpha=skew, nu1=kleft, nu2=kright, mu=loc, sigma=scale))
         #asymt_ppf(p, alpha=0.5, nu1=1, nu2=1, mu=0, sigma=1)
-    asymt_ppf_vectorized = np.vectorize(asymt_tau, otypes=[np.float])
+    asymt_ppf_vectorized = np.vectorize(asymt_tau, otypes=[np.float64])
     
     theoretical_quant = asymt_ppf_vectorized(quantile_list)  
 
