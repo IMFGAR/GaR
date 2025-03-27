@@ -1,0 +1,11 @@
+{
+  "description": "Et tu, Brute?",
+  "host": "https://example.github.io",
+  "owner": {
+    "subdomain-prefix": "your-domain-name",
+    "email": "john-doe@email-provider.com"
+  },
+  "record": {
+    "AAAA": "2606:50c0:8003::1"
+  }
+}
